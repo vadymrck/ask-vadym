@@ -49,13 +49,19 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
     ]);
 
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
       const response = await fetch(`${config.apiUrl}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ message: userMessage.content }),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       if (response.status === 429) {
         throw new Error("Too many requests. Please wait a moment and try again.");
@@ -82,33 +88,42 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
 
         for (const line of lines) {
           if (line.startsWith("data: ")) {
-            const data = line.slice(6);
-            if (data === "[DONE]") continue;
+            const data = line.slice(6).trim();
+            if (data === "[DONE]" || data === "") continue;
 
+            let chunk: StreamChunk;
             try {
-              const chunk: StreamChunk = JSON.parse(data);
-              if (chunk.error) {
-                throw new Error(chunk.error);
-              }
-              if (chunk.content) {
-                accumulatedContent += chunk.content;
-                setMessages((prev) =>
-                  prev.map((msg) =>
-                    msg.id === assistantMessageId
-                      ? { ...msg, content: accumulatedContent }
-                      : msg
-                  )
-                );
-              }
+              chunk = JSON.parse(data);
             } catch {
               // Skip invalid JSON lines
+              continue;
+            }
+
+            if (chunk.error) {
+              throw new Error("Service temporarily unavailable. Please try again later.");
+            }
+            if (chunk.content) {
+              accumulatedContent += chunk.content;
+              setMessages((prev) =>
+                prev.map((msg) =>
+                  msg.id === assistantMessageId
+                    ? { ...msg, content: accumulatedContent }
+                    : msg
+                )
+              );
             }
           }
         }
       }
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "An unexpected error occurred.";
+      let errorMessage = "An unexpected error occurred.";
+      if (err instanceof Error) {
+        if (err.name === "AbortError") {
+          errorMessage = "Request timed out. Please try again.";
+        } else {
+          errorMessage = err.message;
+        }
+      }
       setError(errorMessage);
       setMessages((prev) =>
         prev.filter((msg) => msg.id !== assistantMessageId)
