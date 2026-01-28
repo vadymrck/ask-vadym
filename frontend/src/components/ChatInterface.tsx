@@ -25,6 +25,11 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
+  // Autofocus input when chat opens
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   const generateId = () => Math.random().toString(36).substring(2, 15);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -130,6 +135,10 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
       );
     } finally {
       setIsLoading(false);
+      // Delay focus to ensure DOM is updated after loading state changes
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
     }
   };
 
