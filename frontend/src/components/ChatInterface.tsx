@@ -69,7 +69,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
       clearTimeout(timeoutId);
 
       if (response.status === 429) {
-        throw new Error("Too many requests. Please wait a moment and try again.");
+        throw new Error("Whoa, you're curious! 🚀 You've hit the chat limit for this hour. Grab a coffee ☕ and come back little later - I'll be here ready then to talk again!");
       }
 
       if (!response.ok) {

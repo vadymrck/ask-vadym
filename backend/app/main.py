@@ -1,17 +1,26 @@
 """FastAPI application entry point."""
 
+import logging
 from contextlib import asynccontextmanager
+from datetime import datetime
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
-from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
 from app.api.chat import router as chat_router
 from app.config import get_settings
 from app.middleware.rate_limit import limiter
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
@@ -31,7 +40,20 @@ app = FastAPI(
 )
 
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+
+async def rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded) -> JSONResponse:
+    """Handle rate limit exceeded with logging."""
+    client_ip = request.client.host if request.client else "unknown"
+    logger.warning(f"[RATE_LIMIT] IP {client_ip} exceeded rate limit")
+    return JSONResponse(
+        status_code=429,
+        content={"error": "Rate limit exceeded"},
+        headers={"Retry-After": "3600"},
+    )
+
+
+app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
 
 settings = get_settings()
 app.add_middleware(

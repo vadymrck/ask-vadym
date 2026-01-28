@@ -1,6 +1,7 @@
 """Chat API endpoint."""
 
 import json
+import logging
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Request
@@ -10,6 +11,8 @@ from pydantic import BaseModel, Field
 
 from app.middleware.rate_limit import limiter
 from app.services.openai_service import OpenAIService, get_openai_service
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api", tags=["chat"])
 
@@ -94,4 +97,6 @@ async def chat(
     The chatbot will respond with information about Vadym's professional
     background, skills, and experience as an AI QA Engineer.
     """
+    client_ip = request.client.host if request.client else "unknown"
+    logger.info(f"[CHAT] IP {client_ip} - Message: {chat_request.message[:50]}...")
     return await generate_sse_stream(service, chat_request.message)
