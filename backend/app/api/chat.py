@@ -13,6 +13,9 @@ from app.services.openai_service import OpenAIService, get_openai_service
 
 router = APIRouter(prefix="/api", tags=["chat"])
 
+# Maximum characters allowed in a chat message (keep in sync with frontend)
+MAX_MESSAGE_LENGTH = 500
+
 
 class ChatRequest(BaseModel):
     """Request model for chat endpoint."""
@@ -21,7 +24,7 @@ class ChatRequest(BaseModel):
         str,
         Field(
             min_length=1,
-            max_length=1000,
+            max_length=MAX_MESSAGE_LENGTH,
             description="User message to send to the chatbot",
         ),
     ]

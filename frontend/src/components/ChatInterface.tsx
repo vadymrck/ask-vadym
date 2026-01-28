@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, FormEvent } from "react";
-import { config } from "@/lib/config";
+import { config, MAX_MESSAGE_LENGTH } from "@/lib/config";
 import { Message, StreamChunk } from "@/types/chat";
 import ExampleQuestions from "./ExampleQuestions";
 
@@ -257,17 +257,30 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
           className="px-6 py-4 border-t border-[var(--border)] bg-gray-50"
         >
           <div className="flex items-center space-x-3">
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message..."
-              disabled={isLoading}
-              maxLength={1000}
-              data-testid="chat-input"
-              className="flex-1 px-4 py-3 bg-white border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
-            />
+            <div className="flex-1 relative">
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type your message..."
+                disabled={isLoading}
+                maxLength={MAX_MESSAGE_LENGTH}
+                data-testid="chat-input"
+                className="w-full px-4 py-3 pr-16 bg-white border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+              />
+              {input.length > 0 && (
+                <span
+                  className={`absolute right-3 top-1/2 -translate-y-1/2 text-xs ${
+                    input.length >= MAX_MESSAGE_LENGTH
+                      ? "text-red-500"
+                      : "text-[var(--text-secondary)]"
+                  }`}
+                >
+                  {input.length}/{MAX_MESSAGE_LENGTH}
+                </span>
+              )}
+            </div>
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
