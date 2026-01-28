@@ -5,7 +5,11 @@ import { config } from "@/lib/config";
 import { Message, StreamChunk } from "@/types/chat";
 import ExampleQuestions from "./ExampleQuestions";
 
-export default function ChatInterface() {
+interface ChatInterfaceProps {
+  onClose: () => void;
+}
+
+export default function ChatInterface({ onClose }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -126,13 +130,36 @@ export default function ChatInterface() {
     >
       <div className="bg-[var(--surface)] rounded-xl shadow-lg overflow-hidden border border-[var(--border)]">
         {/* Chat header */}
-        <div className="px-6 py-4 border-b border-[var(--border)] bg-gray-50">
-          <h2 className="text-lg font-semibold text-[var(--text-primary)]">
-            Chat with Vadym
-          </h2>
-          <p className="text-sm text-[var(--text-secondary)]">
-            Ask about experience, skills, or approach to QA
-          </p>
+        <div className="px-6 py-4 border-b border-[var(--border)] bg-gray-50 flex items-start justify-between">
+          <div>
+            <h2 className="text-lg font-semibold text-[var(--text-primary)]">
+              Chat with Vadym
+            </h2>
+            <p className="text-sm text-[var(--text-secondary)]">
+              Ask about experience, skills, or approach to QA
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            data-testid="chat-close"
+            className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-gray-200 rounded-md transition-colors"
+            aria-label="Close chat"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
         </div>
 
         {/* Messages area */}

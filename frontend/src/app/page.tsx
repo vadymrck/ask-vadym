@@ -20,7 +20,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero onStartChat={handleStartChat} />
-        {showChat && <ChatInterface />}
+        {showChat && <ChatInterface onClose={() => setShowChat(false)} />}
       </main>
       <footer className="py-8 text-center text-sm text-[var(--text-secondary)]">
         <p>&copy; {new Date().getFullYear()} Vadym. Built with Next.js.</p>
