@@ -31,9 +31,12 @@ export default function Header({ onStartChat }: HeaderProps) {
               Chat
             </button>
             <span className="text-[var(--border)]">|</span>
-            <span className="text-[var(--text-secondary)] text-sm">
-              AI QA Engineer
-            </span>
+            <a
+              href="/blog"
+              className="text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors cursor-pointer text-sm"
+            >
+              AI QA Blog
+            </a>
           </nav>
 
           {/* Mobile menu button */}
@@ -81,6 +84,13 @@ export default function Header({ onStartChat }: HeaderProps) {
             >
               Chat
             </button>
+            <a
+              href="/blog"
+              className="block py-2 text-[var(--text-secondary)] hover:text-[var(--primary)] cursor-pointer"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              AI QA Blog
+            </a>
           </div>
         )}
       </div>
