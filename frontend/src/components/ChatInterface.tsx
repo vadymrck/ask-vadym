@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback, FormEvent } from "react";
+import { useState, useRef, useEffect, useCallback, FormEvent, ReactNode } from "react";
 import Image from "next/image";
 import { config, MAX_MESSAGE_LENGTH } from "@/lib/config";
 import { Message, StreamChunk } from "@/types/chat";
@@ -8,6 +8,79 @@ import ExampleQuestions from "./ExampleQuestions";
 
 interface ChatInterfaceProps {
   onClose: () => void;
+}
+
+/**
+ * Renders text with markdown links, plain URLs, and email addresses as clickable links.
+ * Supports: [text](url) markdown syntax, plain https:// URLs, and email addresses.
+ */
+function renderMessageContent(content: string, isUserMessage: boolean): ReactNode {
+  // Combined regex: matches markdown links [text](url), plain URLs, or email addresses
+  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|(https?:\/\/[^\s<]+)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+
+  const parts: ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let keyIndex = 0;
+
+  while ((match = linkRegex.exec(content)) !== null) {
+    // Add text before the link
+    if (match.index > lastIndex) {
+      parts.push(content.slice(lastIndex, match.index));
+    }
+
+    const linkClass = isUserMessage
+      ? "underline hover:opacity-80"
+      : "text-[var(--primary)] underline hover:text-[var(--primary-hover)]";
+
+    if (match[1] && match[2]) {
+      // Markdown link: [text](url)
+      parts.push(
+        <a
+          key={keyIndex++}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          {match[1]}
+        </a>
+      );
+    } else if (match[3]) {
+      // Plain URL
+      parts.push(
+        <a
+          key={keyIndex++}
+          href={match[3]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          {match[3]}
+        </a>
+      );
+    } else if (match[4]) {
+      // Email address
+      parts.push(
+        <a
+          key={keyIndex++}
+          href={`mailto:${match[4]}`}
+          className={linkClass}
+        >
+          {match[4]}
+        </a>
+      );
+    }
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Add remaining text after last link
+  if (lastIndex < content.length) {
+    parts.push(content.slice(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : content;
 }
 
 export default function ChatInterface({ onClose }: ChatInterfaceProps) {
@@ -227,7 +300,9 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
                     : "bg-[var(--assistant-message-bg)] text-[var(--text-primary)] rounded-bl-md"
                 }`}
               >
-                {message.content || (
+                {message.content ? (
+                  renderMessageContent(message.content, message.role === "user")
+                ) : (
                   <span
                     className="inline-flex items-center"
                     data-testid="loading-indicator"
