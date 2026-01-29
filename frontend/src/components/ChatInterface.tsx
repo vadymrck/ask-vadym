@@ -257,7 +257,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
     >
       <div className="bg-[var(--surface)] rounded-xl shadow-lg overflow-hidden border border-[var(--border)]">
         {/* Chat header */}
-        <div className="px-6 py-4 border-b border-[var(--border)] bg-gray-50 flex items-start justify-between">
+        <div className="px-6 py-4 border-b border-[var(--border)] bg-blue-50 flex items-start justify-between">
           <div className="flex items-center space-x-3">
             <Image
               src="/avatar.png"
@@ -372,7 +372,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
         {/* Input area */}
         <form
           onSubmit={handleSubmit}
-          className="px-6 py-4 border-t border-[var(--border)] bg-gray-50"
+          className="px-6 py-4 border-t border-[var(--border)] bg-blue-50"
         >
           <div className="flex items-center space-x-3">
             <div className="flex-1 relative">
