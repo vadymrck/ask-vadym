@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
-      <Header />
+      <Header onStartChat={handleStartChat} />
       <main>
         <Hero onStartChat={handleStartChat} />
         {showChat && <ChatInterface onClose={() => setShowChat(false)} />}

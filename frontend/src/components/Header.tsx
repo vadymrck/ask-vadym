@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-export default function Header() {
+interface HeaderProps {
+  onStartChat: () => void;
+}
+
+export default function Header({ onStartChat }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -19,12 +23,13 @@ export default function Header() {
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a
-              href="#chat"
-              className="text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors"
+            <button
+              type="button"
+              onClick={onStartChat}
+              className="text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors cursor-pointer"
             >
               Chat
-            </a>
+            </button>
             <span className="text-[var(--border)]">|</span>
             <span className="text-[var(--text-secondary)] text-sm">
               AI QA Engineer
@@ -66,13 +71,16 @@ export default function Header() {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-[var(--border)]">
-            <a
-              href="#chat"
-              className="block py-2 text-[var(--text-secondary)] hover:text-[var(--primary)]"
-              onClick={() => setIsMenuOpen(false)}
+            <button
+              type="button"
+              className="block py-2 text-[var(--text-secondary)] hover:text-[var(--primary)] cursor-pointer"
+              onClick={() => {
+                setIsMenuOpen(false);
+                onStartChat();
+              }}
             >
               Chat
-            </a>
+            </button>
           </div>
         )}
       </div>
