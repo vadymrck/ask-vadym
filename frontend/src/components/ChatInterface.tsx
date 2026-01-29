@@ -300,7 +300,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
 
         {/* Messages area */}
         <div
-          className="h-96 overflow-y-auto p-6 space-y-4 chat-scrollbar"
+          className="h-72 sm:h-96 overflow-y-auto p-6 space-y-4 chat-scrollbar"
           data-testid="chat-messages"
           onMouseEnter={handleMouseEnterMessages}
           onMouseLeave={handleMouseLeaveMessages}
@@ -308,7 +308,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
           {messages.length === 0 && (
             <div className="text-center py-8">
               <p className="text-[var(--text-secondary)] mb-4">
-                Ask your questions or try prompts below:
+                Ask your questions or try prompts:
               </p>
               <ExampleQuestions onQuestionClick={handleExampleQuestion} />
             </div>
