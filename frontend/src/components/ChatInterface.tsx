@@ -63,9 +63,13 @@ function renderUserMessage(content: string): ReactNode {
  * Renders assistant message with full markdown support.
  */
 function renderAssistantMessage(content: string): ReactNode {
-  // Fix markdown lists: ensure "1.\nText" and "-\nText" become "1. Text" and "- Text"
-  let fixedContent = content.replace(/^(\d+)\.\s*\n+/gm, "$1. ");
-  fixedContent = fixedContent.replace(/^([-*])\s*\n+/gm, "$1 ");
+  // Fix markdown lists: normalize various line break patterns
+  // Handle "1.\nText", "- \nText", "-\nText", etc.
+  let fixedContent = content
+    .replace(/^(\d+)\.\s*\n+/gm, "$1. ")      // "1.\n" -> "1. "
+    .replace(/^([-*])\s*\n+/gm, "$1 ")         // "-\n" -> "- "
+    .replace(/\n([-*])\s*\n+/g, "\n$1 ")       // "\n-\n" -> "\n- "
+    .replace(/\n(\d+)\.\s*\n+/g, "\n$1. ");    // "\n1.\n" -> "\n1. "
 
   return (
     <ReactMarkdown
