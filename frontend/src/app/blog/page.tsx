@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function BlogPage() {
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Header currentPage="blog" />
 
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-12">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-[var(--text-primary)] mb-4">
             AI QA Blog
@@ -42,9 +43,7 @@ export default function BlogPage() {
         </div>
       </main>
 
-      <footer className="py-8 text-center text-sm text-[var(--text-secondary)]">
-        <p>&copy; {new Date().getFullYear()} Vadym Marochok. Built with Next.js.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

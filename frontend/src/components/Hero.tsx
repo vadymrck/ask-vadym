@@ -22,7 +22,7 @@ export default function Hero({ onStartChat }: HeroProps) {
           type="button"
           onClick={onStartChat}
           data-testid="start-chat-button"
-          className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-[var(--primary)] hover:bg-[var(--primary-hover)] rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
+          className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-[var(--primary)] hover:bg-[var(--primary-hover)] rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 cursor-pointer"
         >
           <svg
             className="w-5 h-5 mr-2"

@@ -224,7 +224,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
   return (
     <section
       id="chat"
-      className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-8"
+      className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-8"
     >
       <div className="bg-[var(--surface)] rounded-xl shadow-lg overflow-hidden border border-[var(--border)]">
         {/* Chat header */}
@@ -250,7 +250,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
             type="button"
             onClick={onClose}
             data-testid="chat-close"
-            className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-gray-200 rounded-md transition-colors"
+            className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-gray-200 rounded-md transition-colors cursor-pointer"
             aria-label="Close chat"
           >
             <svg
@@ -370,7 +370,8 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
               type="submit"
               disabled={isLoading || !input.trim()}
               data-testid="chat-submit"
-              className="px-6 py-3 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
+              className="w-10 h-10 flex items-center justify-center bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white rounded-full transition-all duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 cursor-pointer"
+              aria-label="Send message"
             >
               {isLoading ? (
                 <svg
@@ -393,7 +394,19 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
                   />
                 </svg>
               ) : (
-                "Send"
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 10l7-7m0 0l7 7m-7-7v18"
+                  />
+                </svg>
               )}
             </button>
           </div>

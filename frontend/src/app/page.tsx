@@ -4,6 +4,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ChatInterface from "@/components/ChatInterface";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [showChat, setShowChat] = useState(false);
@@ -18,13 +19,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Header onStartChat={handleStartChat} />
-      <main>
+      <main className="pb-16">
         <Hero onStartChat={handleStartChat} />
         {showChat && <ChatInterface onClose={() => setShowChat(false)} />}
       </main>
-      <footer className="py-8 text-center text-sm text-[var(--text-secondary)]">
-        <p>&copy; {new Date().getFullYear()} Vadym Marochok. Built with Next.js.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
