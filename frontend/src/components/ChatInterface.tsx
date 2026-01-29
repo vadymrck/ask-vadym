@@ -257,7 +257,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
     >
       <div className="bg-[var(--surface)] rounded-xl shadow-lg overflow-hidden border border-[var(--border)]">
         {/* Chat header */}
-        <div className="px-6 py-4 border-b border-[var(--border)] bg-blue-50 flex items-start justify-between">
+        <div className="px-6 py-4 border-b border-[var(--border)] bg-[var(--chat-header-bg)] flex items-start justify-between">
           <div className="flex items-center space-x-3">
             <Image
               src="/avatar.png"
@@ -279,7 +279,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
             type="button"
             onClick={onClose}
             data-testid="chat-close"
-            className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-gray-200 rounded-md transition-colors cursor-pointer"
+            className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border)] rounded-md transition-colors cursor-pointer"
             aria-label="Close chat"
           >
             <svg
@@ -340,13 +340,13 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
                     className="inline-flex items-center"
                     data-testid="loading-indicator"
                   >
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce mr-1"></span>
+                    <span className="w-2 h-2 bg-[var(--secondary)] rounded-full animate-bounce mr-1"></span>
                     <span
                       className="w-2 h-2 bg-gray-400 rounded-full animate-bounce mr-1"
                       style={{ animationDelay: "0.1s" }}
                     ></span>
                     <span
-                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      className="w-2 h-2 bg-[var(--secondary)] rounded-full animate-bounce"
                       style={{ animationDelay: "0.2s" }}
                     ></span>
                   </span>
@@ -372,7 +372,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
         {/* Input area */}
         <form
           onSubmit={handleSubmit}
-          className="px-6 py-4 border-t border-[var(--border)] bg-blue-50"
+          className="px-6 py-4 border-t border-[var(--border)] bg-[var(--chat-header-bg)]"
         >
           <div className="flex items-center space-x-3">
             <div className="flex-1 relative">
@@ -385,7 +385,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
                 disabled={isLoading}
                 maxLength={MAX_MESSAGE_LENGTH}
                 data-testid="chat-input"
-                className="w-full px-4 py-3 pr-16 bg-white border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-3 pr-16 bg-[var(--input-bg)] border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed text-[var(--text-primary)]"
               />
               {input.length > 0 && (
                 <span
@@ -403,7 +403,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
               type="submit"
               disabled={isLoading || !input.trim()}
               data-testid="chat-submit"
-              className="w-10 h-10 flex items-center justify-center bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white rounded-full transition-all duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 cursor-pointer"
+              className="w-10 h-10 flex items-center justify-center bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white rounded-full transition-all duration-200 disabled:bg-[var(--border)] disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 cursor-pointer"
               aria-label="Send message"
             >
               {isLoading ? (

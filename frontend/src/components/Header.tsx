@@ -91,7 +91,7 @@ export default function Header({ onStartChat, currentPage = "home" }: HeaderProp
           {/* Mobile menu button */}
           <button
             type="button"
-            className="md:hidden p-2 rounded-md text-[var(--text-secondary)] hover:text-[var(--primary)] hover:bg-gray-100"
+            className="md:hidden p-2 rounded-md text-[var(--text-secondary)] hover:text-[var(--primary)] hover:bg-[var(--border)]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
