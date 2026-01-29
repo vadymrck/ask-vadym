@@ -43,7 +43,7 @@ export default function BlogPage() {
       </main>
 
       <footer className="py-8 text-center text-sm text-[var(--text-secondary)]">
-        <p>&copy; {new Date().getFullYear()} Vadym. Built with Next.js.</p>
+        <p>&copy; {new Date().getFullYear()} Vadym Marochok. Built with Next.js.</p>
       </footer>
     </div>
   );

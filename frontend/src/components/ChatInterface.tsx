@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, FormEvent } from "react";
+import Image from "next/image";
 import { config, MAX_MESSAGE_LENGTH } from "@/lib/config";
 import { Message, StreamChunk } from "@/types/chat";
 import ExampleQuestions from "./ExampleQuestions";
@@ -155,13 +156,22 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
       <div className="bg-[var(--surface)] rounded-xl shadow-lg overflow-hidden border border-[var(--border)]">
         {/* Chat header */}
         <div className="px-6 py-4 border-b border-[var(--border)] bg-gray-50 flex items-start justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-[var(--text-primary)]">
-              Chat with Vadym
-            </h2>
-            <p className="text-sm text-[var(--text-secondary)]">
-              Ask about experience, skills, or approach to Quality Assurance.
-            </p>
+          <div className="flex items-center space-x-3">
+            <Image
+              src="/avatar.png"
+              alt="Vadym Avatar"
+              width={48}
+              height={48}
+              className="rounded-full"
+            />
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--text-primary)]">
+                Chat with Vadym
+              </h2>
+              <p className="text-sm text-[var(--text-secondary)]">
+                Ask about experience, skills, or approach to Quality Assurance.
+              </p>
+            </div>
           </div>
           <button
             type="button"
