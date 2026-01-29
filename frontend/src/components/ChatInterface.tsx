@@ -300,13 +300,13 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
 
         {/* Messages area */}
         <div
-          className="h-72 sm:h-96 overflow-y-auto p-6 space-y-4 chat-scrollbar"
+          className="h-48 sm:h-96 overflow-y-auto p-6 space-y-4 chat-scrollbar"
           data-testid="chat-messages"
           onMouseEnter={handleMouseEnterMessages}
           onMouseLeave={handleMouseLeaveMessages}
         >
           {messages.length === 0 && (
-            <div className="text-center py-8">
+            <div className="hidden sm:block text-center py-8">
               <p className="text-[var(--text-secondary)] mb-4">
                 Ask your questions or try prompts:
               </p>
@@ -381,7 +381,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your message..."
+                placeholder="Ask me about my experience..."
                 disabled={isLoading}
                 maxLength={MAX_MESSAGE_LENGTH}
                 data-testid="chat-input"
