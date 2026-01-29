@@ -104,6 +104,22 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
     inputRef.current?.focus();
   }, []);
 
+  // Lock body scroll when mouse is inside chat messages area
+  const handleMouseEnterMessages = useCallback(() => {
+    document.body.style.overflow = "hidden";
+  }, []);
+
+  const handleMouseLeaveMessages = useCallback(() => {
+    document.body.style.overflow = "";
+  }, []);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   const generateId = () => Math.random().toString(36).substring(2, 15);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -273,6 +289,8 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
         <div
           className="h-96 overflow-y-auto p-6 space-y-4 chat-scrollbar"
           data-testid="chat-messages"
+          onMouseEnter={handleMouseEnterMessages}
+          onMouseLeave={handleMouseLeaveMessages}
         >
           {messages.length === 0 && (
             <div className="text-center py-8">
