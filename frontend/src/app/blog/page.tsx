@@ -1,29 +1,10 @@
 import Link from "next/link";
+import Header from "@/components/Header";
 
 export default function BlogPage() {
   return (
     <div className="min-h-screen bg-[var(--background)]">
-      <header className="sticky top-0 z-50 bg-[var(--surface)] shadow-sm">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="text-xl font-bold text-[var(--primary)]">
-              Ask Vadym
-            </Link>
-            <nav className="flex items-center space-x-8">
-              <Link
-                href="/"
-                className="text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors cursor-pointer"
-              >
-                Chat
-              </Link>
-              <span className="text-[var(--border)]">|</span>
-              <span className="text-[var(--primary)] text-sm font-medium">
-                AI QA Blog
-              </span>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header currentPage="blog" />
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">

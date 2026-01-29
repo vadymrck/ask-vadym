@@ -1,41 +1,90 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 interface HeaderProps {
-  onStartChat: () => void;
+  onStartChat?: () => void;
+  currentPage?: "home" | "blog";
 }
 
-export default function Header({ onStartChat }: HeaderProps) {
+export default function Header({ onStartChat, currentPage = "home" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleChatClick = () => {
+    if (onStartChat) {
+      onStartChat();
+    } else {
+      // Navigate to home page if not on home
+      window.location.href = "/";
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--surface)] shadow-sm">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-[var(--primary)]">
-                Ask Vadym
-              </span>
+          {/* Logo with photo */}
+          <div className="flex items-center space-x-3">
+            <a
+              href="https://www.linkedin.com/in/vadym-m/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cursor-pointer"
+              aria-label="LinkedIn Profile"
+            >
+              <Image
+                src="/vadym.jpg"
+                alt="Vadym Marochok"
+                width={48}
+                height={48}
+                className="rounded-full object-cover hover:ring-2 hover:ring-[var(--primary)] transition-all"
+              />
+            </a>
+            <a href="/" className="text-xl font-bold text-[var(--primary)]">
+              Ask Vadym
             </a>
           </div>
 
           {/* Desktop navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6">
             <button
               type="button"
-              onClick={onStartChat}
-              className="text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors cursor-pointer"
+              onClick={handleChatClick}
+              className={`transition-colors cursor-pointer ${
+                currentPage === "home"
+                  ? "text-[var(--primary)] font-medium"
+                  : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
+              }`}
             >
               Chat
             </button>
             <span className="text-[var(--border)]">|</span>
             <a
               href="/blog"
-              className="text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors cursor-pointer text-sm"
+              className={`transition-colors cursor-pointer ${
+                currentPage === "blog"
+                  ? "text-[var(--primary)] font-medium"
+                  : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
+              }`}
             >
-              AI QA Blog
+              Blog
+            </a>
+            <span className="text-[var(--border)]">|</span>
+            <a
+              href="https://www.linkedin.com/in/vadym-m/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors cursor-pointer"
+              aria-label="LinkedIn Profile"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
             </a>
           </nav>
 
@@ -76,20 +125,44 @@ export default function Header({ onStartChat }: HeaderProps) {
           <div className="md:hidden py-4 border-t border-[var(--border)]">
             <button
               type="button"
-              className="block py-2 text-[var(--text-secondary)] hover:text-[var(--primary)] cursor-pointer"
+              className={`block py-2 cursor-pointer ${
+                currentPage === "home"
+                  ? "text-[var(--primary)] font-medium"
+                  : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
+              }`}
               onClick={() => {
                 setIsMenuOpen(false);
-                onStartChat();
+                handleChatClick();
               }}
             >
               Chat
             </button>
             <a
               href="/blog"
-              className="block py-2 text-[var(--text-secondary)] hover:text-[var(--primary)] cursor-pointer"
+              className={`block py-2 cursor-pointer ${
+                currentPage === "blog"
+                  ? "text-[var(--primary)] font-medium"
+                  : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
+              }`}
               onClick={() => setIsMenuOpen(false)}
             >
-              AI QA Blog
+              Blog
+            </a>
+            <a
+              href="https://www.linkedin.com/in/vadym-m/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center py-2 text-[var(--text-secondary)] hover:text-[var(--primary)] cursor-pointer"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <svg
+                className="w-5 h-5 mr-2"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
             </a>
           </div>
         )}
