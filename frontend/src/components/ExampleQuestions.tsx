@@ -30,13 +30,15 @@ export default function ExampleQuestions({
 }: ExampleQuestionsProps) {
   return (
     <div className="flex flex-wrap justify-center gap-2 mb-6">
-      {EXAMPLE_QUESTIONS.map((item) => (
+      {EXAMPLE_QUESTIONS.map((item, index) => (
         <button
           key={item.label}
           type="button"
           onClick={() => onQuestionClick(item.question)}
           data-testid="example-question"
-          className="px-4 py-2 text-sm font-medium text-[var(--primary)] bg-blue-50 hover:bg-blue-100 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
+          className={`px-4 py-2 text-sm font-medium text-[var(--primary)] bg-[var(--chat-header-bg)] hover:bg-[var(--border)] rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 ${
+            index >= 3 ? "hidden sm:inline-flex" : ""
+          }`}
         >
           {item.label}
         </button>
