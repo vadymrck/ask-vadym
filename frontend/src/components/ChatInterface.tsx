@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback, FormEvent, ReactNode } from "react";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
 import { config, MAX_MESSAGE_LENGTH } from "@/lib/config";
 import { Message, StreamChunk } from "@/types/chat";
 import ExampleQuestions from "./ExampleQuestions";
@@ -11,11 +12,9 @@ interface ChatInterfaceProps {
 }
 
 /**
- * Renders text with markdown links, plain URLs, and email addresses as clickable links.
- * Supports: [text](url) markdown syntax, plain https:// URLs, and email addresses.
+ * Renders user message with clickable links and emails.
  */
-function renderMessageContent(content: string, isUserMessage: boolean): ReactNode {
-  // Combined regex: matches markdown links [text](url), plain URLs, or email addresses
+function renderUserMessage(content: string): ReactNode {
   const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|(https?:\/\/[^\s<]+)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
 
   const parts: ReactNode[] = [];
@@ -24,49 +23,27 @@ function renderMessageContent(content: string, isUserMessage: boolean): ReactNod
   let keyIndex = 0;
 
   while ((match = linkRegex.exec(content)) !== null) {
-    // Add text before the link
     if (match.index > lastIndex) {
       parts.push(content.slice(lastIndex, match.index));
     }
 
-    const linkClass = isUserMessage
-      ? "underline hover:opacity-80"
-      : "text-[var(--primary)] underline hover:text-[var(--primary-hover)]";
+    const linkClass = "underline hover:opacity-80";
 
     if (match[1] && match[2]) {
-      // Markdown link: [text](url)
       parts.push(
-        <a
-          key={keyIndex++}
-          href={match[2]}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={linkClass}
-        >
+        <a key={keyIndex++} href={match[2]} target="_blank" rel="noopener noreferrer" className={linkClass}>
           {match[1]}
         </a>
       );
     } else if (match[3]) {
-      // Plain URL
       parts.push(
-        <a
-          key={keyIndex++}
-          href={match[3]}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={linkClass}
-        >
+        <a key={keyIndex++} href={match[3]} target="_blank" rel="noopener noreferrer" className={linkClass}>
           {match[3]}
         </a>
       );
     } else if (match[4]) {
-      // Email address
       parts.push(
-        <a
-          key={keyIndex++}
-          href={`mailto:${match[4]}`}
-          className={linkClass}
-        >
+        <a key={keyIndex++} href={`mailto:${match[4]}`} className={linkClass}>
           {match[4]}
         </a>
       );
@@ -75,12 +52,44 @@ function renderMessageContent(content: string, isUserMessage: boolean): ReactNod
     lastIndex = match.index + match[0].length;
   }
 
-  // Add remaining text after last link
   if (lastIndex < content.length) {
     parts.push(content.slice(lastIndex));
   }
 
   return parts.length > 0 ? parts : content;
+}
+
+/**
+ * Renders assistant message with full markdown support.
+ */
+function renderAssistantMessage(content: string): ReactNode {
+  // Fix markdown lists: ensure "1.\nText" and "-\nText" become "1. Text" and "- Text"
+  let fixedContent = content.replace(/^(\d+)\.\s*\n+/gm, "$1. ");
+  fixedContent = fixedContent.replace(/^([-*])\s*\n+/gm, "$1 ");
+
+  return (
+    <ReactMarkdown
+      components={{
+        a: ({ href, children }) => (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--primary)] underline hover:text-[var(--primary-hover)]"
+          >
+            {children}
+          </a>
+        ),
+        p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+        ul: ({ children }) => <ul className="list-disc list-inside mb-1 last:mb-0">{children}</ul>,
+        ol: ({ children }) => <ol className="list-decimal list-inside mb-1 last:mb-0">{children}</ol>,
+        li: ({ children }) => <li>{children}</li>,
+        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+      }}
+    >
+      {fixedContent}
+    </ReactMarkdown>
+  );
 }
 
 export default function ChatInterface({ onClose }: ChatInterfaceProps) {
@@ -319,7 +328,9 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
                 }`}
               >
                 {message.content ? (
-                  renderMessageContent(message.content, message.role === "user")
+                  message.role === "user"
+                    ? renderUserMessage(message.content)
+                    : renderAssistantMessage(message.content)
                 ) : (
                   <span
                     className="inline-flex items-center"

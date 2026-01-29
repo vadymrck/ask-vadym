@@ -16,7 +16,7 @@ class OpenAIService:
         settings = get_settings()
         self._client = AsyncOpenAI(api_key=settings.openai_api_key)
         self._model = "gpt-4o-mini"
-        self._max_tokens = 150
+        self._max_tokens = 500
 
     async def create_chat_stream(
         self, message: str
