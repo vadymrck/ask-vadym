@@ -8,16 +8,15 @@ export default function Hero({ onStartChat }: HeroProps) {
       <div className="max-w-3xl mx-auto text-center">
         <h1 className="text-4xl sm:text-5xl font-bold text-[var(--text-primary)] mb-6">
           Hi, I&apos;m{" "}
-          <span className="text-[var(--primary)]">Vadym</span>
+          <span className="text-[var(--primary)]">Vadym Marochok</span>
         </h1>
         <p className="text-xl sm:text-2xl text-[var(--text-secondary)] mb-4">
-          AI QA Engineer
+          QA Engineer
         </p>
         <p className="text-base sm:text-lg text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto">
-          ISTQB-certified QA Engineer with 10+ years of experience specializing
-          in test automation with Playwright, API testing with PyTest, and
-          building quality-first engineering cultures. Ask me about my
-          experience, skills, or approach to testing.
+          He is my AI assistant
+          that can answer your questions about my
+          experience or skills.
         </p>
         <button
           type="button"
@@ -38,7 +37,7 @@ export default function Hero({ onStartChat }: HeroProps) {
               d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
             />
           </svg>
-          Start Chat
+          Ask Vadym
         </button>
       </div>
     </section>

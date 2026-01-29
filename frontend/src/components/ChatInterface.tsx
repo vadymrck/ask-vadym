@@ -160,7 +160,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
               Chat with Vadym
             </h2>
             <p className="text-sm text-[var(--text-secondary)]">
-              Ask about experience, skills, or approach to QA
+              Ask about experience, skills, or approach to Quality Assurance.
             </p>
           </div>
           <button
@@ -194,7 +194,7 @@ export default function ChatInterface({ onClose }: ChatInterfaceProps) {
           {messages.length === 0 && (
             <div className="text-center py-8">
               <p className="text-[var(--text-secondary)] mb-4">
-                No messages yet. Try one of these questions:
+                Ask your questions or try one of these prompts below:
               </p>
               <ExampleQuestions onQuestionClick={handleExampleQuestion} />
             </div>

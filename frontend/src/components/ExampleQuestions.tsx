@@ -5,23 +5,23 @@ interface ExampleQuestionsProps {
 const EXAMPLE_QUESTIONS = [
   {
     label: "Experience",
-    question: "What's your testing experience?",
+    question: "What's your experience?",
   },
   {
     label: "Skills",
-    question: "What test automation tools do you use?",
-  },
-  {
-    label: "Playwright",
-    question: "Tell me about your Playwright experience",
+    question: "What QA skills do you have?",
   },
   {
     label: "AI Testing",
     question: "How do you approach testing AI systems?",
   },
   {
-    label: "Approach",
-    question: "What's your QA philosophy?",
+    label: "Test Automation",
+    question: "What test automation tools do you use?",
+  },
+  {
+    label: "Strategy",
+    question: "What's your QA approach?",
   },
 ];
 
