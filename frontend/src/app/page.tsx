@@ -59,7 +59,39 @@ function renderUserMessage(content: string): ReactNode {
  * Renders assistant message with full markdown support.
  */
 function renderAssistantMessage(content: string): ReactNode {
-  let fixedContent = content
+  const normalizePortfolioBullets = (text: string) => {
+    const lines = text.split("\n");
+    const output: string[] = [];
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      const isCompanyHeader = /^-\s*\*\*.+\)\*\*:/.test(trimmed);
+      const isBullet = /^-\s+/.test(trimmed);
+
+      if (isCompanyHeader) {
+        const header = trimmed.replace(/^-\s*/, "");
+        if (output.length > 0 && output[output.length - 1] !== "") {
+          output.push("");
+        }
+        output.push(header);
+        continue;
+      }
+
+      if (isBullet) {
+        if (output.length > 0 && output[output.length - 1] !== "" && !/^[-*]\s+/.test(output[output.length - 1])) {
+          output.push("");
+        }
+        output.push(trimmed);
+        continue;
+      }
+
+      output.push(line);
+    }
+
+    return output.join("\n");
+  };
+
+  let fixedContent = normalizePortfolioBullets(content)
     // Fix numbered lists with newline after number
     .replace(/^(\d+)\.\s*\n+/gm, "$1. ")
     .replace(/\n(\d+)\.\s*\n+/g, "\n$1. ")
