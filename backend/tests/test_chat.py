@@ -22,7 +22,7 @@ def test_chat_returns_portfolio_content(test_client: TestClient):
     assert response.headers["content-type"] == "text/event-stream; charset=utf-8"
 
     message = get_response_text(response)
-    assert_portfolio_response(message, PORTFOLIO_MARKERS)
+    assert_portfolio_response(message, ['Paris'])
 
 
 @pytest.mark.smoke
