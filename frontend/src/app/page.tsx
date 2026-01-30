@@ -155,6 +155,11 @@ export default function Home() {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
+    const history = messages
+      .filter((msg) => msg.content.trim().length > 0)
+      .slice(-12)
+      .map((msg) => ({ role: msg.role, content: msg.content }));
+
     const userMessage: Message = {
       id: generateId(),
       role: "user",
@@ -181,7 +186,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: userMessage.content }),
+        body: JSON.stringify({ message: userMessage.content, history }),
         signal: controller.signal,
       });
 

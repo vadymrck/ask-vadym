@@ -19,7 +19,7 @@ class OpenAIService:
         self._max_tokens = 500
 
     async def create_chat_stream(
-        self, message: str
+        self, message: str, history: list[dict[str, str]] | None = None
     ) -> AsyncGenerator[str, None]:
         """
         Create a streaming chat completion.
@@ -33,10 +33,12 @@ class OpenAIService:
         Raises:
             OpenAIError: If the API request fails.
         """
+        history_messages = history or []
         stream = await self._client.chat.completions.create(
             model=self._model,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
+                *history_messages,
                 {"role": "user", "content": message},
             ],
             max_tokens=self._max_tokens,

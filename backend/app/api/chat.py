@@ -23,6 +23,15 @@ MAX_MESSAGE_LENGTH = 500
 class ChatRequest(BaseModel):
     """Request model for chat endpoint."""
 
+    class ChatMessage(BaseModel):
+        """Chat message for conversation history."""
+
+        role: str = Field(
+            description="Message role: user or assistant",
+            pattern="^(user|assistant)$",
+        )
+        content: str = Field(min_length=1, description="Message content")
+
     message: Annotated[
         str,
         Field(
@@ -31,6 +40,10 @@ class ChatRequest(BaseModel):
             description="User message to send to the chatbot",
         ),
     ]
+    history: list[ChatMessage] = Field(
+        default_factory=list,
+        description="Recent conversation history (user and assistant messages)",
+    )
 
 
 class ErrorResponse(BaseModel):
@@ -41,7 +54,7 @@ class ErrorResponse(BaseModel):
 
 
 async def generate_sse_stream(
-    service: OpenAIService, message: str
+    service: OpenAIService, message: str, history: list[ChatRequest.ChatMessage]
 ) -> StreamingResponse:
     """
     Generate Server-Sent Events stream for chat response.
@@ -56,7 +69,10 @@ async def generate_sse_stream(
 
     async def event_generator():
         try:
-            async for chunk in service.create_chat_stream(message):
+            async for chunk in service.create_chat_stream(
+                message,
+                [{"role": item.role, "content": item.content} for item in history],
+            ):
                 data = json.dumps({"content": chunk})
                 yield f"data: {data}\n\n"
             yield "data: [DONE]\n\n"
@@ -99,4 +115,4 @@ async def chat(
     """
     client_ip = request.client.host if request.client else "unknown"
     logger.info(f"[CHAT] IP {client_ip} - Message: {chat_request.message[:50]}...")
-    return await generate_sse_stream(service, chat_request.message)
+    return await generate_sse_stream(service, chat_request.message, chat_request.history)

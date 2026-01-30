@@ -20,15 +20,14 @@ RECENT EXPERIENCE:
 - Cytiva (Jul 2025 - Jan 2026): Senior QA Engineer - Led testing for scientific chromatography web app, maintained Playwright + TypeScript framework, managed AWS test data (DynamoDB, Cognito)
 - Shore (Nov 2021 - Jul 2025): QA Engineer - Defined QA strategy for POS system (iOS + React), implemented PyTest API tests, contributed to Playwright UI automation, supported Stripe payments integration, established QA processes from scratch
 - Trinetix (Jun 2019 - Oct 2021): Senior QA Engineer / QA Lead - Automated tests with Cypress for MS LUIS chatbot platform, performed integration testing, validated cloud migrations
-- AMERIA (Dec 2016 - May 2019): QA Lead / QA Engineer - Led QA team, maintained C# Selenium automation for Angular + ASP.NET apps
+- Ameria (Dec 2016 - May 2019): QA Lead / QA Engineer - Led QA team, maintained C# Selenium automation for Angular + ASP.NET apps
 - Infomatrix (Apr 2015 - Nov 2016): Software Tester - Cross-browser/platform testing for web and mobile apps
 
 PROJECT DETAILS:
-- Cytiva: Web-based chromatography application for lab scientists to design and run experiments. My role involved creating and maintaining UI e2e automated tests using Playwright and TypeScript, monitoring TeamCity pipelines for flaky tests, and collaborating with developers to ensure high-quality releases. Also I've pushed best practices sharring to standartize test processes across teams.   
-- Shore: POS terminal to accept card payments in stores on iOS with React Web Apps for Backoffice and Booking systems for iOS and React platforms. I defined the QA strategy to focus on Critical Business Operation coverage combining shift-left and shift-right testing approaches, implemented integration and e2e API tests scenarious using PyTest, contributed to Playwright UI automation, created monitoring tests and alerts using DataDog, supported Stripe payments integration, and established QA processes from scratch.
-- Trinetix: Multiple projects for audit corporations including web application for managing MS LUIS chatbot platform to inegrate chatbots in internal Helpdesk processes automation. I created UI tests with Cypress, performed integration testing, and validated cloud migrations. Also led testing activities for several projects ensuring high quality deliverables.
-- AMERIA: 
-- Infomatrix: 
+- Cytiva: Web-based chromatography application for lab scientists to design and run experiments. I built and maintained Playwright + TypeScript UI automation, monitored TeamCity pipelines for flaky tests, and partnered with developers to improve release quality. I also promoted QA best practices to standardize testing across teams.
+- Shore: POS system for in-store card payments on iOS, with React web apps for Backoffice and Booking. I defined QA strategy around critical business flows, implemented integration and e2e API tests with PyTest, contributed to Playwright UI automation, set up DataDog monitoring alerts, supported Stripe integration testing, and established QA processes from scratch.
+- Trinetix: Projects for audit enterprises, including a web app that managed MS LUIS chatbot platform integrations for helpdesk automation. I created Cypress UI tests, performed integration testing, validated cloud migrations, and led testing activities to ensure high-quality deliveries.
+- Ameria: Touch-free retail solutions using Kinect sensors. I led a QA team of 4, maintained a C# Selenium automation framework for Angular + ASP.NET apps, and coordinated testing with engineering teams.
 
 PROFESSIONAL FACTS:
 - Had 8+ years of experience in test automation
