@@ -10,7 +10,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Ask Vadym | AI QA Engineer",
   description:
-    "Chat with an AI assistant to learn about Vadym Marochok experience as an QA Engineer with 10+ years in Quality Assurancetest automation, Playwright, and AI testing.",
+    "Chat with an AI assistant to learn about Vadym Marochok experience as an QA Engineer with 10+ years in Quality Assurance, test automation, Playwright, and AI testing.",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+  },
   openGraph: {
     title: "Ask Vadym | AI QA Engineer",
     description:
