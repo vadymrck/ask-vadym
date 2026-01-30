@@ -5,7 +5,6 @@ import ReactMarkdown from "react-markdown";
 import { config, MAX_MESSAGE_LENGTH } from "@/lib/config";
 import { Message, StreamChunk } from "@/types/chat";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import ExampleQuestions from "@/components/ExampleQuestions";
 
 /**
@@ -301,13 +300,13 @@ export default function Home() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask me about my experience..."
+                placeholder={!hasMessages ? "Ask me about my QA experience..." : ""}
                 disabled={isLoading}
                 maxLength={MAX_MESSAGE_LENGTH}
-                rows={1}
+                rows={3}
                 data-testid="chat-input"
                 className="w-full px-4 py-4 pr-14 bg-transparent resize-none focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed text-[var(--text-primary)] placeholder-[var(--text-secondary)]"
-                style={{ minHeight: "56px", maxHeight: "200px" }}
+                style={{ minHeight: "80px", maxHeight: "200px" }}
               />
               <button
                 type="submit"
@@ -338,8 +337,6 @@ export default function Home() {
           )}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
