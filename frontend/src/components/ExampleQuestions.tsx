@@ -8,20 +8,20 @@ const EXAMPLE_QUESTIONS = [
     question: "What's your experience?",
   },
   {
-    label: "Skills",
-    question: "What QA skills do you have?",
-  },
-  {
     label: "AI Testing",
     question: "How do you approach testing AI systems?",
   },
   {
-    label: "Test Automation",
-    question: "What test automation tools do you use?",
-  },
-  {
     label: "Contacts",
     question: "How can I contact you?",
+  },
+  {
+    label: "Skills",
+    question: "What QA skills do you have?",
+  },
+  {
+    label: "Test Automation",
+    question: "What test automation tools do you use?",
   },
 ];
 
