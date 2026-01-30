@@ -16,7 +16,7 @@ from tests.helpers import ask_question, assert_portfolio_response, get_response_
 @pytest.mark.smoke
 def test_chat_returns_portfolio_content(test_client: TestClient):
     """Chat should return relevant portfolio content about QA experience."""
-    response = ask_question(test_client, "Hi")
+    response = ask_question(test_client, "What is the capital of France?")
 
     assert response.status_code == 200
     assert response.headers["content-type"] == "text/event-stream; charset=utf-8"
