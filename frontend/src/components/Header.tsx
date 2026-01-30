@@ -4,40 +4,28 @@ import { useState } from "react";
 import Image from "next/image";
 
 interface HeaderProps {
-  onStartChat?: () => void;
   currentPage?: "home" | "blog";
 }
 
-export default function Header({ onStartChat, currentPage = "home" }: HeaderProps) {
+export default function Header({ currentPage = "home" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleChatClick = () => {
-    if (onStartChat) {
-      onStartChat();
-    } else {
-      // Navigate to home page if not on home
-      window.location.href = "/";
-    }
-  };
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--surface)] shadow-sm">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo with photo */}
+          {/* Logo with avatar */}
           <div className="flex items-center space-x-3">
             <a
-              href="https://www.linkedin.com/in/vadym-m/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/"
               className="cursor-pointer"
-              aria-label="LinkedIn Profile"
+              aria-label="Home"
             >
               <Image
-                src="/vadym.jpg"
-                alt="Vadym Marochok"
-                width={48}
-                height={48}
+                src="/avatar.png"
+                alt="Ask Vadym"
+                width={40}
+                height={40}
                 className="rounded-full object-cover hover:ring-2 hover:ring-[var(--primary)] transition-all"
               />
             </a>
@@ -48,9 +36,8 @@ export default function Header({ onStartChat, currentPage = "home" }: HeaderProp
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <button
-              type="button"
-              onClick={handleChatClick}
+            <a
+              href="/"
               className={`transition-colors cursor-pointer ${
                 currentPage === "home"
                   ? "text-[var(--primary)] font-medium"
@@ -58,7 +45,7 @@ export default function Header({ onStartChat, currentPage = "home" }: HeaderProp
               }`}
             >
               Chat
-            </button>
+            </a>
             <span className="text-[var(--border)]">|</span>
             <a
               href="/blog"
@@ -123,20 +110,17 @@ export default function Header({ onStartChat, currentPage = "home" }: HeaderProp
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-[var(--border)]">
-            <button
-              type="button"
+            <a
+              href="/"
               className={`block py-2 cursor-pointer ${
                 currentPage === "home"
                   ? "text-[var(--primary)] font-medium"
                   : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
               }`}
-              onClick={() => {
-                setIsMenuOpen(false);
-                handleChatClick();
-              }}
+              onClick={() => setIsMenuOpen(false)}
             >
               Chat
-            </button>
+            </a>
             <a
               href="/blog"
               className={`block py-2 cursor-pointer ${
