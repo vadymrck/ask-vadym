@@ -20,8 +20,8 @@ const EXAMPLE_QUESTIONS = [
     question: "What test automation tools do you use?",
   },
   {
-    label: "Strategy",
-    question: "What's your QA approach?",
+    label: "Contacts",
+    question: "How can I contact you?",
   },
 ];
 

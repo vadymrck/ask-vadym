@@ -60,10 +60,17 @@ function renderUserMessage(content: string): ReactNode {
  */
 function renderAssistantMessage(content: string): ReactNode {
   let fixedContent = content
+    // Fix numbered lists with newline after number
     .replace(/^(\d+)\.\s*\n+/gm, "$1. ")
+    .replace(/\n(\d+)\.\s*\n+/g, "\n$1. ")
+    // Fix bullets at start of line with newline after
     .replace(/^([-*])\s*\n+/gm, "$1 ")
+    // Fix bullets after newline with newline after
     .replace(/\n([-*])\s*\n+/g, "\n$1 ")
-    .replace(/\n(\d+)\.\s*\n+/g, "\n$1. ");
+    // Fix indented bullets (nested lists) with newline after
+    .replace(/\n(\s+)([-*])\s*\n+/g, "\n$1$2 ")
+    // Normalize multiple spaces before bullets to proper indentation
+    .replace(/\n\s+([-*])\s/g, "\n  $1 ");
 
   return (
     <ReactMarkdown
