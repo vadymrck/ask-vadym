@@ -19,10 +19,11 @@ tests/
 
 ### Smoke Tests (`test_chat.py`) - For CI ✅
 
-**2 tests using real OpenAI API:**
+**3 tests using real OpenAI API:**
 
 1. `test_chat_returns_portfolio_content` - Verifies streaming response with portfolio content
 2. `test_chat_validates_message_length` - Tests 500 character limit enforcement
+3. `test_chat_redirects_offtopic_questions` - Ensures off-topic questions are redirected
 
 ### Validation Tests (`test_validation.py`) - Optional
 
@@ -39,14 +40,14 @@ source venv/bin/activate
 pytest tests/test_chat.py -v
 ```
 
-**Result:** `2 passed in ~3s`
+**Result:** `3 passed in ~3s`
 
 ### All Tests Locally
 ```bash
 pytest -v
 ```
 
-**Result:** `6 passed in ~3s`
+**Result:** `7 passed in ~3s`
 
 ### Specific Test File
 ```bash
@@ -65,8 +66,9 @@ pytest tests/test_chat.py -v
 - ✅ Tests real OpenAI integration
 - ✅ Validates portfolio content
 - ✅ Tests boundary conditions
+- ✅ Ensures off-topic handling
 - ✅ Fast execution (~3 seconds)
-- ✅ Minimal API costs (2 OpenAI calls)
+- ✅ Minimal API costs (3 OpenAI calls)
 
 ## Requirements
 
