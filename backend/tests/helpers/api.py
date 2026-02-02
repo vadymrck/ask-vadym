@@ -20,6 +20,42 @@ def ask_question(test_client: TestClient, question: str):
     return test_client.post("/api/chat", json={"message": question})
 
 
+def ask_question_with_history(
+    test_client: TestClient, question: str, history: list[dict[str, str]]
+):
+    """
+    Send a question to the chat endpoint with conversation history.
+
+    Args:
+        test_client: FastAPI test client.
+        question: Question to ask.
+        history: Prior conversation messages.
+
+    Returns:
+        Response object from the chat endpoint.
+    """
+    return test_client.post(
+        "/api/chat", json={"message": question, "history": history}
+    )
+
+
+def history_from_turn(user_message: str, assistant_message: str) -> list[dict[str, str]]:
+    """
+    Build minimal history from a single user/assistant turn.
+
+    Args:
+        user_message: The prior user message.
+        assistant_message: The prior assistant response.
+
+    Returns:
+        List of history message dicts.
+    """
+    return [
+        {"role": "user", "content": user_message},
+        {"role": "assistant", "content": assistant_message},
+    ]
+
+
 def get_response_text(response) -> str:
     """
     Extract full response text from SSE streaming response.
