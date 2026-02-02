@@ -12,6 +12,8 @@ on:
       - main
     paths:
       - 'backend/**'
+  schedule:
+    - cron: '0 6 * * *'
 
 jobs:
   test:
@@ -38,6 +40,36 @@ jobs:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
         pytest tests/test_chat.py -v
+
+    - name: Test results summary
+      if: always()
+      run: echo "Tests completed with status - ${{ job.status }}"
+
+  daily-portfolio-smoke:
+    if: ${{ github.event_name == 'schedule' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      working-directory: ./backend
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run daily portfolio test
+      working-directory: ./backend
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        pytest tests/test_chat.py -k test_chat_returns_portfolio_content -v
 
     - name: Test results summary
       if: always()

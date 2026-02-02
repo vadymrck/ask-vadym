@@ -21,7 +21,7 @@ from tests.helpers import (
 )
 
 
-@pytest.mark.smoke
+@pytest.mark.monitoring
 def test_chat_returns_portfolio_content(test_client: TestClient):
     """Chat should return relevant portfolio content about QA experience."""
     response = ask_question(test_client, "Hi")
