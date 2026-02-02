@@ -13,13 +13,18 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "~pom/*": ["./tests/pom/*"],
+      "~support/*": ["./tests/support/*"],
+      "~fixtures/*": ["./tests/fixtures/*"]
     }
   },
   "include": [
