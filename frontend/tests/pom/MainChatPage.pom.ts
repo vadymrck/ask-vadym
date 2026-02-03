@@ -130,14 +130,25 @@ export class MainChatPage extends BasePage {
       "Assistant message should be visible",
     ).toBeVisible();
 
+    const loadingIndicator = this.locateLoadingIndicator();
+
     await this.page.waitForFunction(
-      (element) => {
-        const text = element?.textContent || "";
-        return text.trim().length > 10;
+      ({ msgElement, loadingElement }) => {
+        const text = msgElement?.textContent || "";
+        const hasMinLength = text.trim().length > 10;
+        const loadingFinished = !loadingElement ||
+          (loadingElement instanceof HTMLElement && loadingElement.offsetParent === null) ||
+          window.getComputedStyle(loadingElement).display === 'none';
+        return hasMinLength && loadingFinished;
       },
-      await assistantMessage.elementHandle(),
-      { timeout: 30000 },
+      {
+        msgElement: await assistantMessage.elementHandle(),
+        loadingElement: await loadingIndicator.elementHandle().catch(() => null)
+      },
+      { timeout: 30000 }
     );
+
+    await this.page.waitForTimeout(500);
 
     const messageText = await assistantMessage.textContent();
     const messageTextLower = messageText?.toLowerCase() || "";
