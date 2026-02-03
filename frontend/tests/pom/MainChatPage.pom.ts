@@ -1,6 +1,11 @@
-import { expect, Locator, Page } from '@playwright/test';
-import { step } from '~support/decorators';
-import { BasePage } from '~support/BasePage.pom';
+import { expect, Locator, Page } from "@playwright/test";
+import { step } from "~support/decorators";
+import { BasePage } from "~support/BasePage.pom";
+import { getQuestionByLabel } from "~fixtures/example-questions";
+import type {
+  ExampleQuestionLabel,
+  ExampleQuestionText,
+} from "~fixtures/example-questions";
 
 export class MainChatPage extends BasePage {
   constructor(page: Page) {
@@ -10,46 +15,46 @@ export class MainChatPage extends BasePage {
   // Locators
 
   private locateHeroTitle(): Locator {
-    return this.page.getByRole('heading', { name: "Hi! I'm Vadym Marochok" });
+    return this.page.getByRole("heading", { name: "Hi! I'm Vadym Marochok" });
   }
 
   private locateChatInput(): Locator {
-    return this.page.getByTestId('chat-input');
+    return this.page.getByTestId("chat-input");
   }
 
   private locateChatSubmitButton(): Locator {
-    return this.page.getByTestId('chat-submit');
+    return this.page.getByTestId("chat-submit");
   }
 
   private locateMessagesContainer(): Locator {
-    return this.page.getByTestId('chat-messages');
+    return this.page.getByTestId("chat-messages");
   }
 
   private locateUserMessage(): Locator {
-    return this.page.getByTestId('message-user');
+    return this.page.getByTestId("message-user");
   }
 
   private locateAssistantMessage(): Locator {
-    return this.page.getByTestId('message-assistant');
+    return this.page.getByTestId("message-assistant");
   }
 
   private locateExampleQuestion(text: string): Locator {
-    return this.page.getByTestId('example-question').filter({ hasText: text });
+    return this.page.getByTestId("example-question").filter({ hasText: text });
   }
 
   private locateLoadingIndicator(): Locator {
-    return this.page.getByTestId('loading-indicator');
+    return this.page.getByTestId("loading-indicator");
   }
 
   private locateErrorMessage(): Locator {
-    return this.page.getByTestId('error-message');
+    return this.page.getByTestId("error-message");
   }
 
   // Actions
 
   @step()
   async goto() {
-    await this.navigate('/');
+    await this.navigate("/");
     await this.waitForPageReady();
     await this.toHaveHeroTitle("Hi! I'm Vadym Marochok");
   }
@@ -66,8 +71,14 @@ export class MainChatPage extends BasePage {
   }
 
   @step()
-  async clickExampleQuestion(question: string) {
-    await this.locateExampleQuestion(question).click();
+  async submitWithEnter() {
+    await this.locateChatInput().press("Enter");
+  }
+
+  @step()
+  async clickExampleQuestion(label: ExampleQuestionLabel) {
+    const question = getQuestionByLabel(label);
+    await this.locateExampleQuestion(label).click();
   }
 
   // Assertions
@@ -75,85 +86,132 @@ export class MainChatPage extends BasePage {
   @step()
   async toHaveHeroTitle(expectedText: string) {
     const heroTitle = this.locateHeroTitle();
-    await expect(heroTitle, `Hero title should contain "${expectedText}"`).toBeVisible();
-    await expect(heroTitle, `Hero title should match "${expectedText}"`).toHaveText(expectedText);
+    await expect(
+      heroTitle,
+      `Hero title should contain "${expectedText}"`,
+    ).toBeVisible();
+    await expect(
+      heroTitle,
+      `Hero title should match "${expectedText}"`,
+    ).toHaveText(expectedText);
   }
 
   @step()
   async toHaveChatInput() {
-    await expect(this.locateChatInput(), 'Chat input should be visible').toBeVisible();
+    await expect(
+      this.locateChatInput(),
+      "Chat input should be visible",
+    ).toBeVisible();
   }
 
   @step()
   async toHaveUserMessage(text: string) {
     const userMessage = this.locateUserMessage();
-    await expect(userMessage, `User message should contain "${text}"`).toContainText(text);
+    await expect(
+      userMessage,
+      `User message should contain "${text}"`,
+    ).toContainText(text);
   }
 
   @step()
   async toHaveAssistantMessage() {
     const assistantMessage = this.locateAssistantMessage();
-    await expect(assistantMessage, 'Assistant message should be visible').toBeVisible();
+    await expect(
+      assistantMessage,
+      "Assistant message should be visible",
+    ).toBeVisible();
   }
 
   @step()
   async toHaveAssistantMessageContaining(expectedMarkers: string[]) {
     const assistantMessage = this.locateAssistantMessage();
-    await expect(assistantMessage, 'Assistant message should be visible').toBeVisible();
+    await expect(
+      assistantMessage,
+      "Assistant message should be visible",
+    ).toBeVisible();
 
     await this.page.waitForFunction(
       (element) => {
-        const text = element?.textContent || '';
+        const text = element?.textContent || "";
         return text.trim().length > 10;
       },
       await assistantMessage.elementHandle(),
-      { timeout: 30000 }
+      { timeout: 30000 },
     );
 
     const messageText = await assistantMessage.textContent();
-    const messageTextLower = messageText?.toLowerCase() || '';
+    const messageTextLower = messageText?.toLowerCase() || "";
 
-    const found = expectedMarkers.some(marker => messageTextLower.includes(marker.toLowerCase()));
+    const found = expectedMarkers.some((marker) =>
+      messageTextLower.includes(marker.toLowerCase()),
+    );
 
     if (!found) {
       throw new Error(
-        `Assistant message should contain at least one of: ${expectedMarkers.join(', ')}. Got: ${messageText}`
+        `Assistant message should contain at least one of: ${expectedMarkers.join(", ")}. Got: ${messageText}`,
       );
     }
   }
 
   @step()
   async notToHaveHeroTitle() {
-    await expect(this.locateHeroTitle(), 'Hero title should not be visible').toBeHidden();
+    await expect(
+      this.locateHeroTitle(),
+      "Hero title should not be visible",
+    ).toBeHidden();
   }
 
   @step()
   async toHaveLoadingIndicator() {
     const loadingIndicator = this.locateLoadingIndicator();
-    await expect(loadingIndicator, 'Loading indicator should be visible').toBeVisible();
+    await expect(
+      loadingIndicator,
+      "Loading indicator should be visible",
+    ).toBeVisible();
   }
 
   @step()
   async toHaveErrorMessage(errorText: string) {
     const errorMessage = this.locateErrorMessage();
-    await expect(errorMessage, `Error message should contain "${errorText}"`).toContainText(errorText);
+    await expect(
+      errorMessage,
+      `Error message should contain "${errorText}"`,
+    ).toContainText(errorText);
   }
 
   @step()
   async toHaveInputFocusInsideChat() {
     const chatInput = this.locateChatInput();
-    await expect(chatInput, 'Chat input should be focused').toBeFocused();
+    await expect(chatInput, "Chat input should be focused").toBeFocused();
   }
 
   @step()
   async toHaveSubmitButtonBeDisabled() {
     const submitButton = this.locateChatSubmitButton();
-    await expect(submitButton, 'Send button should be disabled').toBeDisabled();
+    await expect(submitButton, "Send button should be disabled").toBeDisabled();
   }
 
   @step()
   async toHaveSubmitButtonBeEnabled() {
     const submitButton = this.locateChatSubmitButton();
-    await expect(submitButton, 'Send button should be enabled').toBeEnabled();
+    await expect(submitButton, "Send button should be enabled").toBeEnabled();
+  }
+
+  @step()
+  async toHavePlaceholderText(expectedPlaceholderText: string) {
+    const chatInput = this.locateChatInput();
+    await expect(
+      chatInput,
+      `Chat input should have placeholder "${expectedPlaceholderText}"`,
+    ).toHaveAttribute("placeholder", expectedPlaceholderText);
+  }
+
+  @step()
+  async toHaveExampleChatInput(expectedQuestion: ExampleQuestionText) {
+    const chatInput = this.locateChatInput();
+    await expect(
+      chatInput,
+      `Chat input should have value "${expectedQuestion}"`,
+    ).toHaveValue(expectedQuestion);
   }
 }

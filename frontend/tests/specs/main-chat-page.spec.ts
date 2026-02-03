@@ -25,4 +25,30 @@ test.describe("Main Chat Page", () => {
       await mainChatPage.toHaveSubmitButtonBeDisabled();
     });
   });
+
+  test("Example questions", async () => {
+    await test.step("Select example questions", async () => {
+      await mainChatPage.toHaveSubmitButtonBeDisabled();
+      await mainChatPage.toHavePlaceholderText(
+        "Ask me about my QA experience...",
+      );
+      await mainChatPage.clickExampleQuestion("AI Testing");
+      await mainChatPage.toHaveExampleChatInput(
+        "How do you approach testing AI systems?",
+      );
+      await mainChatPage.toHaveSubmitButtonBeEnabled();
+      await mainChatPage.clickExampleQuestion("Test Automation");
+      await mainChatPage.toHaveExampleChatInput(
+        "What test automation tools do you use?",
+      );
+    });
+
+    await test.step("Verify assistant response", async () => {
+      await mainChatPage.submitWithEnter();
+      await mainChatPage.toHaveUserMessage(
+        "What test automation tools do you use?",
+      );
+      await mainChatPage.toHaveAssistantMessageContaining(["Playwright"]);
+    });
+  });
 });
