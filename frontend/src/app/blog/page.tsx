@@ -1,45 +1,75 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { BLOG_POSTS } from "@/types/blog";
+
+export const metadata: Metadata = {
+  title: "Blog | Ask Vadym — AI QA Engineer",
+  description:
+    "Articles on QA automation, Playwright, Pytest, API testing, and AI-assisted testing by Vadym Marochok.",
+  openGraph: {
+    title: "Blog | Ask Vadym — AI QA Engineer",
+    description:
+      "Articles on QA automation, Playwright, Pytest, API testing, and AI-assisted testing by Vadym Marochok.",
+    type: "website",
+  },
+};
 
 export default function BlogPage() {
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <Header currentPage="blog" />
 
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-12">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-[var(--text-primary)] mb-4">
-            AI QA Blog
-          </h1>
-          <p className="text-xl text-[var(--text-secondary)] mb-8">
-            Coming Soon
-          </p>
-          <div className="bg-[var(--surface)] rounded-xl shadow-lg p-8 border border-[var(--border)]">
-            <svg
-              className="w-16 h-16 mx-auto text-[var(--primary)] mb-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-              />
-            </svg>
-            <p className="text-[var(--text-secondary)] mb-6">
-              I&apos;m working on articles about QA automation, Playwright tips,
-              API testing best practices, and AI-assisted testing.
-            </p>
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-10">Blog</h1>
+
+        <div className="flex flex-col gap-8">
+          {BLOG_POSTS.map((post) => (
             <Link
-              href="/"
-              className="inline-flex items-center px-6 py-3 text-white bg-[var(--primary)] hover:bg-[var(--primary-hover)] rounded-lg transition-colors cursor-pointer"
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              className="group bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden hover:shadow-md transition-shadow"
             >
-              Back to Chat
+              <div className="flex flex-col sm:flex-row gap-4 p-4">
+                <div className="relative w-full sm:w-48 sm:shrink-0 aspect-video rounded-lg overflow-hidden">
+                  <Image
+                    src={post.thumbnail}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex flex-col justify-between py-1">
+                  <div>
+                    <time
+                      dateTime={post.date}
+                      className="text-xs text-[var(--text-secondary)]"
+                    >
+                      {new Date(post.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    <h2 className="mt-1 text-base font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary)] transition-colors leading-snug">
+                      {post.title}
+                    </h2>
+                    <p className="mt-2 text-[var(--text-secondary)] text-sm leading-relaxed line-clamp-2">
+                      {post.description}
+                    </p>
+                  </div>
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-[var(--primary)]">
+                    Read article
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
             </Link>
-          </div>
+          ))}
         </div>
       </main>
 

@@ -51,4 +51,12 @@ test.describe("Main Chat Page", () => {
       await mainChatPage.toHaveAssistantMessageContaining(["Playwright"]);
     });
   });
+
+  test("Navigation", async () => {
+    await test.step("Open Blog page", async () => {
+      await mainChatPage.toHaveInputFocusInsideChat();
+      await mainChatPage.toHaveSubmitButtonBeDisabled();
+
+    });
+  });
 });

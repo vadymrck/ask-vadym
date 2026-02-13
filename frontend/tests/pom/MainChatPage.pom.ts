@@ -97,6 +97,14 @@ export class MainChatPage extends BasePage {
   }
 
   @step()
+  async notToHaveHeroTitle() {
+    await expect(
+      this.locateHeroTitle(),
+      "Hero title should not be visible",
+    ).toBeHidden();
+  }
+
+  @step()
   async toHaveChatInput() {
     await expect(
       this.locateChatInput(),
@@ -136,16 +144,20 @@ export class MainChatPage extends BasePage {
       ({ msgElement, loadingElement }) => {
         const text = msgElement?.textContent || "";
         const hasMinLength = text.trim().length > 10;
-        const loadingFinished = !loadingElement ||
-          (loadingElement instanceof HTMLElement && loadingElement.offsetParent === null) ||
-          window.getComputedStyle(loadingElement).display === 'none';
+        const loadingFinished =
+          !loadingElement ||
+          (loadingElement instanceof HTMLElement &&
+            loadingElement.offsetParent === null) ||
+          window.getComputedStyle(loadingElement).display === "none";
         return hasMinLength && loadingFinished;
       },
       {
         msgElement: await assistantMessage.elementHandle(),
-        loadingElement: await loadingIndicator.elementHandle().catch(() => null)
+        loadingElement: await loadingIndicator
+          .elementHandle()
+          .catch(() => null),
       },
-      { timeout: 30000 }
+      { timeout: 30000 },
     );
 
     await this.page.waitForTimeout(500);
@@ -162,14 +174,6 @@ export class MainChatPage extends BasePage {
         `Assistant message should contain at least one of: ${expectedMarkers.join(", ")}. Got: ${messageText}`,
       );
     }
-  }
-
-  @step()
-  async notToHaveHeroTitle() {
-    await expect(
-      this.locateHeroTitle(),
-      "Hero title should not be visible",
-    ).toBeHidden();
   }
 
   @step()
