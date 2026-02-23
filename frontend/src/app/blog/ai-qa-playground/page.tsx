@@ -63,7 +63,7 @@ export default function AiQaPlaygroundPost() {
             </p>
           </header>
 
-          <div className="prose-content">
+          <div className="prose prose-slate max-w-none prose-content">
             <p>
               If you&apos;re learning test automation, finding a realistic practice project is harder than it should be.
             </p>
@@ -143,7 +143,7 @@ export default function AiQaPlaygroundPost() {
               sends a message and verifies the AI response:
             </p>
 
-            <CodeBlock code={`test("Chatbot responds to greeting", async () => {
+            <CodeBlock lang="typescript" code={`test("Chatbot responds to greeting", async () => {
   await test.step("Input chat message", async () => {
     await mainChatPage.toBeOnChatPage();
     await mainChatPage.toHaveInputFocusInsideChat();
@@ -181,7 +181,7 @@ export default function AiQaPlaygroundPost() {
               declines off-topic questions:
             </p>
 
-            <CodeBlock code={`@pytest.mark.regression
+            <CodeBlock lang="python" code={`@pytest.mark.regression
 def test_chat_redirects_offtopic_questions(test_client: TestClient):
     """Chat should politely decline off-topic questions."""
     response = ask_question(test_client, "What is the capital of France?")

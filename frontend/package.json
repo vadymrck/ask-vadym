@@ -13,11 +13,13 @@
     "test:report": "playwright show-report"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "ai": "^6.0.57",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-markdown": "^10.1.0"
+    "react-markdown": "^10.1.0",
+    "shiki": "^3.22.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.1",
