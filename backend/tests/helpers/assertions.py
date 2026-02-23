@@ -1,7 +1,9 @@
 """Test assertion helpers."""
 
 
-def assert_portfolio_response(response: str, expected_markers: list[str]) -> None:
+def assert_portfolio_response(
+    response: str, expected_markers: list[str]
+) -> None:
     """
     Assert that response is relevant to portfolio content.
 
@@ -15,9 +17,13 @@ def assert_portfolio_response(response: str, expected_markers: list[str]) -> Non
     assert len(response) > 0, "Response should not be empty"
 
     response_lower = response.lower()
-    found = any(marker.lower() in response_lower for marker in expected_markers)
+    found = any(
+        marker.lower() in response_lower for marker in expected_markers
+    )
 
-    assert found, f"Response should contain at least one of: {expected_markers}"
+    assert (
+        found
+    ), f"Response should contain at least one of: {expected_markers}"
 
 
 def assert_contains_text(response: str, expected: str) -> None:
@@ -30,9 +36,9 @@ def assert_contains_text(response: str, expected: str) -> None:
     """
     response_lower = response.lower()
     expected_lower = expected.lower()
-    assert expected_lower in response_lower, (
-        f"Response should contain '{expected}'. Got: {response}"
-    )
+    assert (
+        expected_lower in response_lower
+    ), f"Response should contain '{expected}'. Got: {response}"
 
 
 def assert_not_contains_text(response: str, unexpected: str) -> None:
@@ -45,6 +51,6 @@ def assert_not_contains_text(response: str, unexpected: str) -> None:
     """
     response_lower = response.lower()
     unexpected_lower = unexpected.lower()
-    assert unexpected_lower not in response_lower, (
-        f"Response should not contain '{unexpected}'. Got: {response}"
-    )
+    assert (
+        unexpected_lower not in response_lower
+    ), f"Response should not contain '{unexpected}'. Got: {response}"

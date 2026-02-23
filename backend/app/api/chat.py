@@ -54,7 +54,9 @@ class ErrorResponse(BaseModel):
 
 
 async def generate_sse_stream(
-    service: OpenAIService, message: str, history: list[ChatRequest.ChatMessage]
+    service: OpenAIService,
+    message: str,
+    history: list[ChatRequest.ChatMessage],
 ) -> StreamingResponse:
     """
     Generate Server-Sent Events stream for chat response.
@@ -76,7 +78,7 @@ async def generate_sse_stream(
                 data = json.dumps({"content": chunk})
                 yield f"data: {data}\n\n"
             yield "data: [DONE]\n\n"
-        except OpenAIError as e:
+        except OpenAIError:
             error_data = json.dumps({"error": "Failed to generate response"})
             yield f"data: {error_data}\n\n"
 
@@ -115,4 +117,6 @@ async def chat(
     """
     client_ip = request.client.host if request.client else "unknown"
     logger.info(f"[CHAT] IP {client_ip} - Message: {chat_request.message[:50]}...")
-    return await generate_sse_stream(service, chat_request.message, chat_request.history)
+    return await generate_sse_stream(
+        service, chat_request.message, chat_request.history
+    )

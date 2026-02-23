@@ -2,7 +2,6 @@
 
 import logging
 from contextlib import asynccontextmanager
-from datetime import datetime
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -42,7 +41,9 @@ app = FastAPI(
 app.state.limiter = limiter
 
 
-async def rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded) -> JSONResponse:
+async def rate_limit_exceeded_handler(
+    request: Request, exc: RateLimitExceeded
+) -> JSONResponse:
     """Handle rate limit exceeded with logging."""
     client_ip = request.client.host if request.client else "unknown"
     logger.warning(f"[RATE_LIMIT] IP {client_ip} exceeded rate limit")
@@ -85,9 +86,7 @@ async def validation_exception_handler(
 
 
 @app.exception_handler(Exception)
-async def general_exception_handler(
-    request: Request, exc: Exception
-) -> JSONResponse:
+async def general_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     """Handle unexpected errors without leaking internal details."""
     return JSONResponse(
         status_code=500,

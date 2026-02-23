@@ -39,7 +39,9 @@ def ask_question_with_history(
     )
 
 
-def history_from_turn(user_message: str, assistant_message: str) -> list[dict[str, str]]:
+def history_from_turn(
+    user_message: str, assistant_message: str
+) -> list[dict[str, str]]:
     """
     Build minimal history from a single user/assistant turn.
 
@@ -67,7 +69,9 @@ def get_response_text(response) -> str:
         Complete response text reconstructed from stream chunks.
     """
     events = _parse_sse_stream(response.text)
-    chunks = [event.get("content", "") for event in events if "content" in event]
+    chunks = [
+        event.get("content", "") for event in events if "content" in event
+    ]
     return "".join(chunks)
 
 
