@@ -20,8 +20,8 @@ CORE SKILLS:
 - Programming: TypeScript, JavaScript, Python, C#
 
 RECENT EXPERIENCE:
-- Cytiva (Jul 2024 - Present): Senior QA Engineer - Led testing for scientific chromatography web app, maintained Playwright + TypeScript framework, managed AWS test data (DynamoDB, Cognito)
-- Shore (Nov 2021 - Jul 2024): QA Engineer - Defined QA strategy for POS system (iOS + React), implemented PyTest API tests, contributed to Playwright UI automation, supported Stripe payments integration, established QA processes from scratch
+- Cytiva (Jul 2025 - Present): Senior QA Engineer - Led testing for scientific chromatography web app, maintained Playwright + TypeScript framework, managed AWS test data (DynamoDB, Cognito)
+- Shore (Nov 2021 - Jul 2025): QA Engineer - Defined QA strategy for POS system (iOS + React), implemented PyTest API tests, contributed to Playwright UI automation, supported Stripe payments integration, established QA processes from scratch
 - Trinetix (Jun 2019 - Oct 2021): Senior QA Engineer / QA Lead - Automated tests with Cypress for MS LUIS chatbot platform, performed integration testing, validated cloud migrations
 - Ameria (Dec 2016 - May 2019): QA Lead / QA Engineer - Led QA team, maintained C# Selenium automation for Angular + ASP.NET apps
 - Infomatrix (Apr 2015 - Nov 2016): Software Tester - Cross-browser/platform testing for web and mobile apps
