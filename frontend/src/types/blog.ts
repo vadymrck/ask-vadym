@@ -3,10 +3,18 @@ export type BlogPost = {
   title: string;
   description: string;
   date: string;
-  thumbnail: string;
+  thumbnail?: string;
 };
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: "qa-metrics-dashboard",
+    title: "Modern QA Dashboard in the AI Development Era",
+    description:
+      "Modern QA is no longer about counting test cases. It's about controlling the balance between speed and risk — combining classic engineering metrics with a new AI-aware quality layer.",
+    date: "2026-03-17",
+    thumbnail: "/blog/qa-metrics-dashboard-thumbnail.jpeg",
+  },
   {
     slug: "playwright-cli-tests",
     title: "Playwright CLI: Generating Production-Ready Tests with AI",
