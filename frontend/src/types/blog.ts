@@ -8,6 +8,14 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "claude-chrome-extension",
+    title: "Exploratory Testing with Claude in Chrome Extension",
+    description:
+      "How Claude Desktop's built-in Chrome MCP enables exploratory testing directly in the browser — no Playwright, no Puppeteer, no terminal. Just a prompt.",
+    date: "2026-03-19",
+    thumbnail: "/blog/claude-chrome-extension-thumbnail.jpeg",
+  },
+  {
     slug: "qa-metrics-dashboard",
     title: "Modern QA Dashboard in the AI Development Era",
     description:
