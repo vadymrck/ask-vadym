@@ -281,13 +281,13 @@ export default function QATestingTypesDashboardPage() {
           border: 1px solid #e6ebf2;
           border-radius: var(--radius);
           box-shadow: 0 1px 2px rgba(0,0,0,.05);
-          padding: 8px 10px 18px;
+          padding: 8px 10px 7px;
           position: relative;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: flex-start;
           width: 154px;
-          min-height: 48px;
+          min-height: 64px;
           transition: box-shadow .15s, border-color .15s;
         }
         .tile:hover {
@@ -337,7 +337,7 @@ export default function QATestingTypesDashboardPage() {
 
         .nf-group .tile {
           width: auto;
-          min-height: 48px;
+          min-height: 62px;
           border-color: #e6ebf2;
           box-shadow: 0 1px 2px rgba(0,0,0,.05);
         }
@@ -372,18 +372,23 @@ export default function QATestingTypesDashboardPage() {
         }
 
         .tile-footer {
-          display: none;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          margin-top: auto;
+          min-height: 14px;
         }
 
         .ai-badge {
-          position: absolute;
-          bottom: 4px;
-          right: 6px;
-          font-size: 8px;
+          font-size: 8.5px;
           font-weight: 600;
-          color: #94a3b8;
+          color: #64748b;
+          background: transparent;
+          border: none;
+          border-radius: 4px;
+          padding: 0;
+          cursor: default;
           white-space: nowrap;
-          line-height: 1;
         }
 
         .info-btn {
