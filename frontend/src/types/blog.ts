@@ -8,6 +8,14 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "qa-testing-types",
+    title: "QA Testing Types in the AI Era: What Changed (and What Didn't)",
+    description:
+      "AI doesn't introduce new testing types — it changes how some of them are applied. A practical breakdown of where AI impacts QA testing and where the fundamentals stay the same.",
+    date: "2026-04-07",
+    thumbnail: "/blog/testing-types.png",
+  },
+  {
     slug: "claude-chrome-extension",
     title: "Exploratory Testing with Claude in Chrome Extension",
     description:
