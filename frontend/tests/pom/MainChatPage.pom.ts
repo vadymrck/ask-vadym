@@ -1,7 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { step } from "~support/decorators";
 import { BasePage } from "~support/BasePage.pom";
-import { getQuestionByLabel } from "~fixtures/example-questions";
 import type {
   ExampleQuestionLabel,
   ExampleQuestionText,
@@ -77,7 +76,6 @@ export class MainChatPage extends BasePage {
 
   @step()
   async clickExampleQuestion(label: ExampleQuestionLabel) {
-    const question = getQuestionByLabel(label);
     await this.locateExampleQuestion(label).click();
   }
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface HeaderProps {
   currentPage?: "home" | "blog";
@@ -16,7 +17,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo with avatar */}
           <div className="flex items-center space-x-3">
-            <a
+            <Link
               href="/"
               className="cursor-pointer"
               aria-label="Home"
@@ -28,15 +29,15 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
                 height={40}
                 className="rounded-full object-cover hover:ring-2 hover:ring-[var(--primary)] transition-all"
               />
-            </a>
-            <a href="/" className="text-xl font-bold text-[var(--primary)]">
+            </Link>
+            <Link href="/" className="text-xl font-bold text-[var(--primary)]">
               Ask Vadym
-            </a>
+            </Link>
           </div>
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <a
+            <Link
               href="/"
               className={`transition-colors cursor-pointer ${
                 currentPage === "home"
@@ -45,9 +46,9 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               }`}
             >
               Chat
-            </a>
+            </Link>
             <span className="text-[var(--border)]">|</span>
-            <a
+            <Link
               href="/blog"
               className={`transition-colors cursor-pointer ${
                 currentPage === "blog"
@@ -56,7 +57,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               }`}
             >
               Blog
-            </a>
+            </Link>
             <span className="text-[var(--border)]">|</span>
             <a
               href="https://www.linkedin.com/in/vadym-m/"
@@ -90,11 +91,11 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
             </a>
             <span className="text-[var(--border)]">|</span>
             <button
-              data-cal-link="ask-vadym/30min"
+              data-cal-link="ask-vadym/20min"
 
               className="px-4 py-1.5 text-sm font-medium border border-[var(--primary)] text-[var(--primary)] rounded-lg hover:bg-[var(--primary)] hover:text-white transition-all duration-200 cursor-pointer"
             >
-              Book a Meeting
+              Book a QA Intro Call
             </button>
           </nav>
 
@@ -133,7 +134,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-[var(--border)]">
-            <a
+            <Link
               href="/"
               className={`block py-2 cursor-pointer ${
                 currentPage === "home"
@@ -143,8 +144,8 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               onClick={() => setIsMenuOpen(false)}
             >
               Chat
-            </a>
-            <a
+            </Link>
+            <Link
               href="/blog"
               className={`block py-2 cursor-pointer ${
                 currentPage === "blog"
@@ -154,7 +155,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               onClick={() => setIsMenuOpen(false)}
             >
               Blog
-            </a>
+            </Link>
             <a
               href="https://www.linkedin.com/in/vadym-m/"
               target="_blank"
@@ -188,12 +189,12 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               YouTube
             </a>
             <button
-              data-cal-link="ask-vadym/30min"
+              data-cal-link="ask-vadym/20min"
 
               className="flex items-center py-2 text-[var(--primary)] font-medium cursor-pointer"
               onClick={() => setIsMenuOpen(false)}
             >
-              Book a Meeting
+              Book a QA Intro Call
             </button>
           </div>
         )}
