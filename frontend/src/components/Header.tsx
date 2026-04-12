@@ -21,6 +21,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               href="/"
               className="cursor-pointer"
               aria-label="Home"
+              onClick={() => { window.location.href = '/'; }}
             >
               <Image
                 src="/avatar.png"
@@ -30,7 +31,11 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
                 className="rounded-full object-cover hover:ring-2 hover:ring-[var(--primary)] transition-all"
               />
             </Link>
-            <Link href="/" className="text-xl font-bold text-[var(--primary)]">
+            <Link
+              href="/"
+              className="text-xl font-bold text-[var(--primary)]"
+              onClick={() => { window.location.href = '/'; }}
+            >
               Ask Vadym
             </Link>
           </div>
@@ -93,7 +98,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
             <button
               data-cal-link="ask-vadym/20min"
 
-              className="px-4 py-1.5 text-sm font-medium border border-[var(--primary)] text-[var(--primary)] rounded-lg hover:bg-[var(--primary)] hover:text-white transition-all duration-200 cursor-pointer"
+              className="px-4 py-1.5 text-sm font-medium bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-hover)] shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
             >
               Book a QA Intro Call
             </button>
@@ -190,11 +195,13 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
             </a>
             <button
               data-cal-link="ask-vadym/20min"
-
-              className="flex items-center py-2 text-[var(--primary)] font-medium cursor-pointer"
-              onClick={() => setIsMenuOpen(false)}
+              className="flex items-center py-2 hover:opacity-80 transition-opacity cursor-pointer"
+              onClick={() => setTimeout(() => setIsMenuOpen(false), 300)}
             >
-              Book a QA Intro Call
+              <svg className="w-5 h-5 mr-2 flex-shrink-0 text-[var(--text-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span className="text-[var(--primary)] font-medium">Book a QA Intro Call</span>
             </button>
           </div>
         )}

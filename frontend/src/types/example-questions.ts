@@ -4,16 +4,17 @@ export const EXAMPLE_QUESTIONS = [
     question: "What's your experience?",
   },
   {
-    label: "AI Testing",
-    question: "How do you approach testing AI systems?",
-  },
-  {
-    label: "Contacts",
-    question: "How can I contact you?",
+    label: "Book Intro Call",
+    question: "Book a short 20-minute intro call to discuss QA, automation, or opportunities.",
+    highlight: true,
   },
   {
     label: "Skills",
     question: "What QA skills do you have?",
+  },
+  {
+    label: "Contacts",
+    question: "How can I contact you?",
   },
   {
     label: "Test Automation",
@@ -23,3 +24,4 @@ export const EXAMPLE_QUESTIONS = [
 
 export type ExampleQuestion = typeof EXAMPLE_QUESTIONS[number];
 export type ExampleQuestionLabel = typeof EXAMPLE_QUESTIONS[number]['label'];
+export type HighlightedExampleQuestion = ExampleQuestion & { highlight?: boolean };

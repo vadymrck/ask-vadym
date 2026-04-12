@@ -295,17 +295,6 @@ export default function Home() {
             <p className="text-lg sm:text-xl text-[var(--text-primary)] mb-6 font-medium leading-relaxed max-w-xl mx-auto italic">
               I help teams deliver reliable software while moving fast with automation
             </p>
-            <button
-              type="button"
-              data-cal-link="ask-vadym/20min"
-              data-testid="book-meeting-button"
-              className="inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-[var(--primary)] hover:bg-[var(--primary-hover)] rounded-lg shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 cursor-pointer"
-            >
-              <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              Book a QA Intro Call
-            </button>
           </div>
         )}
         {/* Messages area - shown when there are messages */}
@@ -354,13 +343,13 @@ export default function Home() {
         {/* Input area */}
         <div className="py-4 sm:py-6">
         {!hasMessages && (
-          <div className="flex items-center gap-2 mb-3 text-[var(--text-primary)]">
-            <svg className="w-7 h-7 flex-shrink-0 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            <p className="text-base font-semibold">
-              This is an interactive QA portfolio — ask about my experience, projects, or skills.
-            </p>
+          <div className="flex justify-start mb-3">
+            <div className="w-[95%] sm:max-w-[80%] px-4 py-3 rounded-2xl rounded-bl-md bg-blue-50 border border-blue-100 text-[var(--text-primary)] flex items-center gap-3">
+              <svg className="w-6 h-6 flex-shrink-0 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <span className="font-medium">Hi! Ask me about my experience, projects, or QA skills.</span>
+            </div>
           </div>
         )}
           <form onSubmit={handleSubmit} className="relative">
@@ -370,7 +359,7 @@ export default function Home() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder={!hasMessages ? "Ask about my experience, Playwright automation, or QA strategy…" : ""}
+                placeholder={!hasMessages ? "Type your question…" : ""}
                 disabled={isLoading}
                 maxLength={MAX_MESSAGE_LENGTH}
                 rows={3}
