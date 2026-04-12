@@ -2,13 +2,25 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface HeaderProps {
   currentPage?: "home" | "blog";
 }
 
+type CalWindow = Window & {
+  Cal?: (action: string, options?: Record<string, unknown>) => void;
+};
+
 export default function Header({ currentPage = "home" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const openCalPopup = () => {
+    const calWindow = window as CalWindow;
+    if (typeof window !== "undefined" && calWindow.Cal) {
+      calWindow.Cal("modal", { calLink: "ask-vadym/20min" });
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--surface)] shadow-sm">
@@ -16,10 +28,11 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo with avatar */}
           <div className="flex items-center space-x-3">
-            <a
+            <Link
               href="/"
               className="cursor-pointer"
               aria-label="Home"
+              onClick={() => { window.location.href = '/'; }}
             >
               <Image
                 src="/avatar.png"
@@ -28,15 +41,19 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
                 height={40}
                 className="rounded-full object-cover hover:ring-2 hover:ring-[var(--primary)] transition-all"
               />
-            </a>
-            <a href="/" className="text-xl font-bold text-[var(--primary)]">
+            </Link>
+            <Link
+              href="/"
+              className="text-xl font-bold text-[var(--primary)]"
+              onClick={() => { window.location.href = '/'; }}
+            >
               Ask Vadym
-            </a>
+            </Link>
           </div>
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <a
+            <Link
               href="/"
               className={`transition-colors cursor-pointer ${
                 currentPage === "home"
@@ -45,9 +62,9 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               }`}
             >
               Chat
-            </a>
+            </Link>
             <span className="text-[var(--border)]">|</span>
-            <a
+            <Link
               href="/blog"
               className={`transition-colors cursor-pointer ${
                 currentPage === "blog"
@@ -56,7 +73,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               }`}
             >
               Blog
-            </a>
+            </Link>
             <span className="text-[var(--border)]">|</span>
             <a
               href="https://www.linkedin.com/in/vadym-m/"
@@ -88,11 +105,20 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
             </a>
+            <span className="text-[var(--border)]">|</span>
+            <button
+              data-testid="book-call-button"
+              className="px-4 py-1.5 text-sm font-medium bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-hover)] shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+              onClick={openCalPopup}
+            >
+              Book a QA Intro Call
+            </button>
           </nav>
 
           {/* Mobile menu button */}
           <button
             type="button"
+            data-testid="mobile-menu-toggle"
             className="md:hidden p-2 rounded-md text-[var(--text-secondary)] hover:text-[var(--primary)] hover:bg-[var(--border)]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
@@ -125,7 +151,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-[var(--border)]">
-            <a
+            <Link
               href="/"
               className={`block py-2 cursor-pointer ${
                 currentPage === "home"
@@ -135,8 +161,8 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               onClick={() => setIsMenuOpen(false)}
             >
               Chat
-            </a>
-            <a
+            </Link>
+            <Link
               href="/blog"
               className={`block py-2 cursor-pointer ${
                 currentPage === "blog"
@@ -146,7 +172,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               onClick={() => setIsMenuOpen(false)}
             >
               Blog
-            </a>
+            </Link>
             <a
               href="https://www.linkedin.com/in/vadym-m/"
               target="_blank"
@@ -179,6 +205,16 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               </svg>
               YouTube
             </a>
+            <button
+              data-testid="book-call-button-mobile"
+              className="flex items-center py-2 hover:opacity-80 transition-opacity cursor-pointer"
+              onClick={() => { openCalPopup(); setTimeout(() => setIsMenuOpen(false), 300); }}
+            >
+              <svg className="w-5 h-5 mr-2 flex-shrink-0 text-[var(--text-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span className="text-[var(--primary)] font-medium">Book a QA Intro Call</span>
+            </button>
           </div>
         )}
       </div>

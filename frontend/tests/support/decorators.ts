@@ -6,7 +6,7 @@ import { test } from '@playwright/test';
  */
 export function step() {
   return function (
-    target: Object,
+    target: object,
     propertyKey: string | symbol,
     descriptor: PropertyDescriptor
   ): void | PropertyDescriptor {
@@ -18,7 +18,7 @@ export function step() {
     if (originalMethod.constructor.name !== 'AsyncFunction') {
       throw new Error(`@step can only be used on async methods. "${String(propertyKey)}" is not async.`);
     }
-    descriptor.value = async function (...args: any[]) {
+    descriptor.value = async function (...args: unknown[]) {
       return await test.step(String(propertyKey), async () => {
         return await originalMethod.apply(this, args);
       });

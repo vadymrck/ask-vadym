@@ -1,7 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { step } from "~support/decorators";
 import { BasePage } from "~support/BasePage.pom";
-import { getQuestionByLabel } from "~fixtures/example-questions";
 import type {
   ExampleQuestionLabel,
   ExampleQuestionText,
@@ -15,7 +14,19 @@ export class MainChatPage extends BasePage {
   // Locators
 
   private locateHeroTitle(): Locator {
-    return this.page.getByRole("heading", { name: "Hi! I'm Vadym Marochok" });
+    return this.page.getByRole("heading", { name: "Vadym Marochok" });
+  }
+
+  private locateBookCallButton(): Locator {
+    return this.page.getByTestId("book-call-button");
+  }
+
+  private locateBookCallMobileButton(): Locator {
+    return this.page.getByTestId("book-call-button-mobile");
+  }
+
+  private locateMobileMenuToggle(): Locator {
+    return this.page.getByTestId("mobile-menu-toggle");
   }
 
   private locateChatInput(): Locator {
@@ -56,7 +67,23 @@ export class MainChatPage extends BasePage {
   async goto() {
     await this.navigate("/");
     await this.waitForPageReady();
-    await this.toHaveHeroTitle("Hi! I'm Vadym Marochok");
+    await this.toHaveHeroTitle("Vadym Marochok");
+    // Wait for React hydration — input becomes interactive after useEffect runs
+    await expect(this.locateChatInput()).toBeVisible();
+  }
+
+  @step()
+  async gotoMobile() {
+    await this.page.setViewportSize({ width: 375, height: 812 });
+    await this.navigate("/");
+    await this.waitForPageReady();
+    await this.toHaveHeroTitle("Vadym Marochok");
+    await expect(this.locateChatInput()).toBeVisible();
+  }
+
+  @step()
+  async openMobileMenu() {
+    await this.locateMobileMenuToggle().click();
   }
 
   @step()
@@ -77,7 +104,6 @@ export class MainChatPage extends BasePage {
 
   @step()
   async clickExampleQuestion(label: ExampleQuestionLabel) {
-    const question = getQuestionByLabel(label);
     await this.locateExampleQuestion(label).click();
   }
 
@@ -136,7 +162,7 @@ export class MainChatPage extends BasePage {
     await expect(
       assistantMessage,
       "Assistant message should be visible",
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 30000 });
 
     const loadingIndicator = this.locateLoadingIndicator();
 
@@ -228,5 +254,86 @@ export class MainChatPage extends BasePage {
       chatInput,
       `Chat input should have value "${expectedQuestion}"`,
     ).toHaveValue(expectedQuestion);
+  }
+
+  @step()
+  async toHaveBookCallButtonVisible() {
+    const button = this.locateBookCallButton();
+    await expect(button, "Book call button should be visible").toBeVisible();
+  }
+
+  private async waitForCalReady() {
+    await this.page.waitForFunction(
+      () => typeof (window as Window & { Cal?: unknown }).Cal === 'function',
+      { timeout: 15000 }
+    );
+  }
+
+  @step()
+  async clickBookCallButton() {
+    await this.waitForCalReady();
+    await this.locateBookCallButton().click();
+  }
+
+  @step()
+  async clickBookCallMobileButton() {
+    await this.waitForCalReady();
+    await this.locateBookCallMobileButton().click();
+  }
+
+  @step()
+  async toHaveBookCallMobileButtonVisible() {
+    const button = this.locateBookCallMobileButton();
+    await expect(button, "Mobile book call button should be visible").toBeVisible();
+  }
+
+  @step()
+  async toHaveCalPopupVisible() {
+    // cal-modal-box renders its content in shadow DOM, so we check the close button inside it.
+    // Playwright automatically pierces open shadow roots in CSS selectors.
+    const closeButton = this.page.locator('cal-modal-box button[aria-label="Close"]').first();
+    await expect(
+      closeButton,
+      "Cal.com booking popup close button should be visible (popup is open)"
+    ).toBeVisible({ timeout: 20000 });
+  }
+
+  @step()
+  async closeCalPopup() {
+    await this.page.locator('cal-modal-box button[aria-label="Close"]').first().click();
+  }
+
+  @step()
+  async toHaveCalPopupClosed() {
+    const closeButton = this.page.locator('cal-modal-box button[aria-label="Close"]').first();
+    await expect(
+      closeButton,
+      "Cal.com booking popup close button should not be visible (popup is closed)"
+    ).not.toBeVisible({ timeout: 10000 });
+  }
+
+  @step()
+  async toHaveAssistantBookingLink() {
+    const assistantMessage = this.locateAssistantMessage();
+    await expect(
+      assistantMessage,
+      "Assistant booking response should be visible"
+    ).toBeVisible({ timeout: 30000 });
+
+    await this.page.waitForFunction(
+      (el) => (el?.textContent?.trim().length ?? 0) > 10,
+      await assistantMessage.elementHandle(),
+      { timeout: 30000 }
+    );
+
+    const bookingLink = assistantMessage.locator('a[href*="cal.com/ask-vadym"]', { hasText: "Book a QA Intro Call" });
+    await expect(
+      bookingLink,
+      'Assistant response should contain "Book a QA Intro Call" link to cal.com/ask-vadym'
+    ).toBeVisible({ timeout: 5000 });
+    await expect(
+      bookingLink,
+      "Booking link should point to cal.com/ask-vadym/20min"
+    ).toHaveAttribute("href", /cal\.com\/ask-vadym\/20min/);
   }
 }

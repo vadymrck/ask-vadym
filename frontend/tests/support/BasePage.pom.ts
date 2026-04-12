@@ -8,12 +8,12 @@ export class BasePage {
   @step()
   async navigate(path: string) {
     await this.page.goto(`${config.baseURL}${path}`, {
-      waitUntil: 'domcontentloaded',
+      waitUntil: 'load',
     });
   }
 
   @step()
   async waitForPageReady() {
-    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForLoadState('load');
   }
 }

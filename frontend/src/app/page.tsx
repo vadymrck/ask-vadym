@@ -91,7 +91,7 @@ function renderAssistantMessage(content: string): ReactNode {
     return output.join("\n");
   };
 
-  let fixedContent = normalizePortfolioBullets(content)
+  const fixedContent = normalizePortfolioBullets(content)
     // Fix numbered lists with newline after number
     .replace(/^(\d+)\.\s*\n+/gm, "$1. ")
     .replace(/\n(\d+)\.\s*\n+/g, "\n$1. ")
@@ -285,13 +285,18 @@ export default function Home() {
       <main className={`flex-1 flex flex-col max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 ${!hasMessages ? "justify-center" : ""}`}>
         {/* Welcome section - shown when no messages */}
         {!hasMessages && (
-          <div className="text-center mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-              Hi! I'm Vadym Marochok
+          <div className="text-center mb-4 py-8">
+            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--primary)] mb-2">
+              Vadym Marochok
             </h1>
+            <p className="text-base sm:text-lg font-medium text-[var(--text-primary)] mb-5 tracking-wide">
+              Senior QA Engineer (Automation &amp; QA Strategy)
+            </p>
+            <p className="text-lg sm:text-xl text-[var(--text-primary)] mb-6 font-medium leading-relaxed max-w-xl mx-auto italic">
+              I help teams deliver reliable software while moving fast with automation
+            </p>
           </div>
         )}
-
         {/* Messages area - shown when there are messages */}
         {hasMessages && (
           <div className="flex-1 overflow-y-auto py-6 space-y-6 chat-scrollbar">
@@ -337,6 +342,16 @@ export default function Home() {
 
         {/* Input area */}
         <div className="py-4 sm:py-6">
+        {!hasMessages && (
+          <div className="flex justify-start mb-3">
+            <div className="w-[95%] sm:max-w-[80%] px-4 py-3 rounded-2xl rounded-bl-md bg-blue-50 border border-blue-100 text-[var(--text-primary)] flex items-center gap-3">
+              <svg className="w-6 h-6 flex-shrink-0 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <span className="font-medium">Hi! Ask me about my experience, projects, or QA skills.</span>
+            </div>
+          </div>
+        )}
           <form onSubmit={handleSubmit} className="relative">
             <div className="relative bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-sm">
               <textarea
@@ -344,7 +359,7 @@ export default function Home() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder={!hasMessages ? "Ask me about my QA experience..." : ""}
+                placeholder={!hasMessages ? "Type your question…" : ""}
                 disabled={isLoading}
                 maxLength={MAX_MESSAGE_LENGTH}
                 rows={3}

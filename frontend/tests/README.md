@@ -7,7 +7,8 @@ Playwright-based end-to-end tests for the Ask Vadym portfolio chatbot frontend.
 ```
 tests/
 ├── specs/           # Test specification files
-│   └── main-chat-page.spec.ts
+│   ├── main-chat-page.spec.ts
+│   └── book-call.spec.ts
 ├── pom/             # Page Object Model files
 │   └── MainChatPage.pom.ts
 ├── support/         # Shared utilities and base classes
@@ -136,6 +137,40 @@ async clickSubmit() {
 
 // In test - call directly (no wrapper needed)
 await mainChatPage.clickSubmit();
+```
+
+### test.step() Usage in Specs
+
+`test.step()` groups logically related operations for readability and reporting. Use it only when a step represents a **meaningful operation** — not just to wrap a single assertion.
+
+**Rules:**
+- Assertions belong to the step of the action they verify — not in their own standalone step
+- Only use `test.step()` when grouping 2+ meaningful operations
+- A step that contains only assertions with no action is a smell — merge it with the preceding action step
+- Step names should describe **what is happening**, not just "Verify X"
+
+**DON'T — assertion as its own step:**
+```typescript
+await test.step("Click button", async () => {
+  await page.clickBookCallButton();
+});
+
+await test.step("Verify dialog is displayed", async () => {  // ← wrong
+  await page.toHaveCalPopupVisible();
+});
+```
+
+**DO — assertion belongs to the action step:**
+```typescript
+await test.step("Click button and verify dialog opens", async () => {
+  await page.clickBookCallButton();
+  await page.toHaveCalPopupVisible();  // ← belongs here
+});
+
+await test.step("Close dialog and verify it is dismissed", async () => {
+  await page.closeCalPopup();
+  await page.toHaveCalPopupClosed();  // ← belongs here
+});
 ```
 
 ## CI/CD Integration
