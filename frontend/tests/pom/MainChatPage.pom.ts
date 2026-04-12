@@ -14,7 +14,19 @@ export class MainChatPage extends BasePage {
   // Locators
 
   private locateHeroTitle(): Locator {
-    return this.page.getByRole("heading", { name: "Hi! I'm Vadym Marochok" });
+    return this.page.getByRole("heading", { name: "Vadym Marochok" });
+  }
+
+  private locateBookCallButton(): Locator {
+    return this.page.getByTestId("book-call-button");
+  }
+
+  private locateBookCallMobileButton(): Locator {
+    return this.page.getByTestId("book-call-button-mobile");
+  }
+
+  private locateMobileMenuToggle(): Locator {
+    return this.page.getByTestId("mobile-menu-toggle");
   }
 
   private locateChatInput(): Locator {
@@ -55,7 +67,12 @@ export class MainChatPage extends BasePage {
   async goto() {
     await this.navigate("/");
     await this.waitForPageReady();
-    await this.toHaveHeroTitle("Hi! I'm Vadym Marochok");
+    await this.toHaveHeroTitle("Vadym Marochok");
+  }
+
+  @step()
+  async openMobileMenu() {
+    await this.locateMobileMenuToggle().click();
   }
 
   @step()
@@ -226,5 +243,75 @@ export class MainChatPage extends BasePage {
       chatInput,
       `Chat input should have value "${expectedQuestion}"`,
     ).toHaveValue(expectedQuestion);
+  }
+
+  @step()
+  async toHaveBookCallButtonVisible() {
+    const button = this.locateBookCallButton();
+    await expect(button, "Book call button should be visible").toBeVisible();
+    await expect(button, "Book call button should have cal link").toHaveAttribute("data-cal-link", "ask-vadym/20min");
+  }
+
+  @step()
+  async clickBookCallButton() {
+    await this.locateBookCallButton().click();
+  }
+
+  @step()
+  async clickBookCallMobileButton() {
+    await this.locateBookCallMobileButton().click();
+  }
+
+  @step()
+  async toHaveBookCallMobileButtonVisible() {
+    const button = this.locateBookCallMobileButton();
+    await expect(button, "Mobile book call button should be visible").toBeVisible();
+    await expect(button, "Mobile book call button should have cal link").toHaveAttribute("data-cal-link", "ask-vadym/20min");
+  }
+
+  @step()
+  async toHaveCalPopupVisible() {
+    await expect(
+      this.page.locator("cal-modal-box"),
+      "Cal.com booking popup should be visible"
+    ).toBeVisible({ timeout: 10000 });
+  }
+
+  @step()
+  async closeCalPopup() {
+    await this.page.locator('cal-modal-box button[aria-label="Close"]').click();
+  }
+
+  @step()
+  async toHaveCalPopupClosed() {
+    await expect(
+      this.page.locator("cal-modal-box"),
+      "Cal.com booking popup should be closed"
+    ).not.toBeVisible({ timeout: 5000 });
+  }
+
+  @step()
+  async toHaveAssistantBookingLink() {
+    const assistantMessage = this.locateAssistantMessage();
+    await expect(
+      assistantMessage,
+      "Assistant booking response should be visible"
+    ).toBeVisible({ timeout: 30000 });
+
+    await this.page.waitForFunction(
+      (el) => (el?.textContent?.trim().length ?? 0) > 10,
+      await assistantMessage.elementHandle(),
+      { timeout: 30000 }
+    );
+
+    const bookingLink = assistantMessage.locator('a[href*="cal.com/ask-vadym"]', { hasText: "Book a QA Intro Call" });
+    await expect(
+      bookingLink,
+      'Assistant response should contain "Book a QA Intro Call" link to cal.com/ask-vadym'
+    ).toBeVisible({ timeout: 5000 });
+    await expect(
+      bookingLink,
+      "Booking link should point to cal.com/ask-vadym/20min"
+    ).toHaveAttribute("href", /cal\.com\/ask-vadym\/20min/);
   }
 }

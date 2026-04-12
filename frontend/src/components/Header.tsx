@@ -97,7 +97,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
             <span className="text-[var(--border)]">|</span>
             <button
               data-cal-link="ask-vadym/20min"
-
+              data-testid="book-call-button"
               className="px-4 py-1.5 text-sm font-medium bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-hover)] shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
             >
               Book a QA Intro Call
@@ -107,6 +107,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
           {/* Mobile menu button */}
           <button
             type="button"
+            data-testid="mobile-menu-toggle"
             className="md:hidden p-2 rounded-md text-[var(--text-secondary)] hover:text-[var(--primary)] hover:bg-[var(--border)]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
@@ -195,6 +196,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
             </a>
             <button
               data-cal-link="ask-vadym/20min"
+              data-testid="book-call-button-mobile"
               className="flex items-center py-2 hover:opacity-80 transition-opacity cursor-pointer"
               onClick={() => setTimeout(() => setIsMenuOpen(false), 300)}
             >

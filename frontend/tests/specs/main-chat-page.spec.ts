@@ -19,7 +19,7 @@ test.describe("Main Chat Page", () => {
       await mainChatPage.toHaveUserMessage("Hello");
     });
 
-    await test.step("Verify assistant response", async () => {
+    await test.step("Wait for assistant greeting and verify input reset", async () => {
       await mainChatPage.toHaveAssistantMessageContaining(GREETING_MARKERS);
       await mainChatPage.toHaveInputFocusInsideChat();
       await mainChatPage.toHaveSubmitButtonBeDisabled();
@@ -30,11 +30,11 @@ test.describe("Main Chat Page", () => {
     await test.step("Select example questions", async () => {
       await mainChatPage.toHaveSubmitButtonBeDisabled();
       await mainChatPage.toHavePlaceholderText(
-        "Ask me about my QA experience...",
+        "Type your question…",
       );
-      await mainChatPage.clickExampleQuestion("AI Testing");
+      await mainChatPage.clickExampleQuestion("Experience");
       await mainChatPage.toHaveExampleChatInput(
-        "How do you approach testing AI systems?",
+        "What's your experience?",
       );
       await mainChatPage.toHaveSubmitButtonBeEnabled();
       await mainChatPage.clickExampleQuestion("Test Automation");
@@ -43,7 +43,7 @@ test.describe("Main Chat Page", () => {
       );
     });
 
-    await test.step("Verify assistant response", async () => {
+    await test.step("Submit question and verify Playwright mentioned", async () => {
       await mainChatPage.submitWithEnter();
       await mainChatPage.toHaveUserMessage(
         "What test automation tools do you use?",
@@ -60,3 +60,4 @@ test.describe("Main Chat Page", () => {
     });
   });
 });
+
