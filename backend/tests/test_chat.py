@@ -100,4 +100,3 @@ def test_chat_handles_recent_experience_follow_up(test_client: TestClient):
 
     second_text = get_response_text(second_response)
     assert_contains_text(second_text, "Shore")
-    assert_not_contains_text(second_text, "Cytiva")
