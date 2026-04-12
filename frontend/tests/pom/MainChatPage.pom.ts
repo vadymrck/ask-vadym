@@ -68,6 +68,17 @@ export class MainChatPage extends BasePage {
     await this.navigate("/");
     await this.waitForPageReady();
     await this.toHaveHeroTitle("Vadym Marochok");
+    // Wait for React hydration — input becomes interactive after useEffect runs
+    await expect(this.locateChatInput()).toBeVisible();
+  }
+
+  @step()
+  async gotoMobile() {
+    await this.page.setViewportSize({ width: 375, height: 812 });
+    await this.navigate("/");
+    await this.waitForPageReady();
+    await this.toHaveHeroTitle("Vadym Marochok");
+    await expect(this.locateChatInput()).toBeVisible();
   }
 
   @step()
@@ -151,7 +162,7 @@ export class MainChatPage extends BasePage {
     await expect(
       assistantMessage,
       "Assistant message should be visible",
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 30000 });
 
     const loadingIndicator = this.locateLoadingIndicator();
 
@@ -249,16 +260,24 @@ export class MainChatPage extends BasePage {
   async toHaveBookCallButtonVisible() {
     const button = this.locateBookCallButton();
     await expect(button, "Book call button should be visible").toBeVisible();
-    await expect(button, "Book call button should have cal link").toHaveAttribute("data-cal-link", "ask-vadym/20min");
+  }
+
+  private async waitForCalReady() {
+    await this.page.waitForFunction(
+      () => typeof (window as Window & { Cal?: unknown }).Cal === 'function',
+      { timeout: 15000 }
+    );
   }
 
   @step()
   async clickBookCallButton() {
+    await this.waitForCalReady();
     await this.locateBookCallButton().click();
   }
 
   @step()
   async clickBookCallMobileButton() {
+    await this.waitForCalReady();
     await this.locateBookCallMobileButton().click();
   }
 
@@ -266,28 +285,31 @@ export class MainChatPage extends BasePage {
   async toHaveBookCallMobileButtonVisible() {
     const button = this.locateBookCallMobileButton();
     await expect(button, "Mobile book call button should be visible").toBeVisible();
-    await expect(button, "Mobile book call button should have cal link").toHaveAttribute("data-cal-link", "ask-vadym/20min");
   }
 
   @step()
   async toHaveCalPopupVisible() {
+    // cal-modal-box renders its content in shadow DOM, so we check the close button inside it.
+    // Playwright automatically pierces open shadow roots in CSS selectors.
+    const closeButton = this.page.locator('cal-modal-box button[aria-label="Close"]').first();
     await expect(
-      this.page.locator("cal-modal-box"),
-      "Cal.com booking popup should be visible"
-    ).toBeVisible({ timeout: 10000 });
+      closeButton,
+      "Cal.com booking popup close button should be visible (popup is open)"
+    ).toBeVisible({ timeout: 20000 });
   }
 
   @step()
   async closeCalPopup() {
-    await this.page.locator('cal-modal-box button[aria-label="Close"]').click();
+    await this.page.locator('cal-modal-box button[aria-label="Close"]').first().click();
   }
 
   @step()
   async toHaveCalPopupClosed() {
+    const closeButton = this.page.locator('cal-modal-box button[aria-label="Close"]').first();
     await expect(
-      this.page.locator("cal-modal-box"),
-      "Cal.com booking popup should be closed"
-    ).not.toBeVisible({ timeout: 5000 });
+      closeButton,
+      "Cal.com booking popup close button should not be visible (popup is closed)"
+    ).not.toBeVisible({ timeout: 10000 });
   }
 
   @step()

@@ -8,8 +8,19 @@ interface HeaderProps {
   currentPage?: "home" | "blog";
 }
 
+type CalWindow = Window & {
+  Cal?: (action: string, options?: Record<string, unknown>) => void;
+};
+
 export default function Header({ currentPage = "home" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const openCalPopup = () => {
+    const calWindow = window as CalWindow;
+    if (typeof window !== "undefined" && calWindow.Cal) {
+      calWindow.Cal("modal", { calLink: "ask-vadym/20min" });
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--surface)] shadow-sm">
@@ -96,9 +107,9 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
             </a>
             <span className="text-[var(--border)]">|</span>
             <button
-              data-cal-link="ask-vadym/20min"
               data-testid="book-call-button"
               className="px-4 py-1.5 text-sm font-medium bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-hover)] shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+              onClick={openCalPopup}
             >
               Book a QA Intro Call
             </button>
@@ -195,10 +206,9 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               YouTube
             </a>
             <button
-              data-cal-link="ask-vadym/20min"
               data-testid="book-call-button-mobile"
               className="flex items-center py-2 hover:opacity-80 transition-opacity cursor-pointer"
-              onClick={() => setTimeout(() => setIsMenuOpen(false), 300)}
+              onClick={() => { openCalPopup(); setTimeout(() => setIsMenuOpen(false), 300); }}
             >
               <svg className="w-5 h-5 mr-2 flex-shrink-0 text-[var(--text-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />

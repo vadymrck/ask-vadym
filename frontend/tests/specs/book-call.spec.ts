@@ -22,8 +22,8 @@ test.describe("Book a QA Intro Call", () => {
     });
   });
 
-  test("Mobile: burger menu button opens and closes booking dialog", async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 812 });
+  test("Mobile: burger menu button opens and closes booking dialog", async () => {
+    await mainChatPage.gotoMobile();
 
     await test.step("Open mobile menu and click Book a QA Intro Call", async () => {
       await mainChatPage.openMobileMenu();
