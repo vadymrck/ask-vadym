@@ -111,7 +111,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               className="px-4 py-1.5 text-sm font-medium bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-hover)] shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
               onClick={openCalPopup}
             >
-              Book a QA Intro Call
+              Book Intro Call
             </button>
           </nav>
 
@@ -213,7 +213,7 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
               <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              Book a QA Intro Call
+              Book Intro Call
             </button>
           </div>
         )}

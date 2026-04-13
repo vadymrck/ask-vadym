@@ -290,7 +290,7 @@ export default function Home() {
               Vadym Marochok
             </h1>
             <p className="text-base sm:text-lg font-medium text-[var(--text-primary)] mb-5 tracking-wide">
-              Senior QA Engineer (Automation &amp; QA Strategy)
+              QA Engineer (AI Automation &amp; QA Strategy)
             </p>
             <p className="text-lg sm:text-xl text-[var(--text-primary)] mb-6 font-medium leading-relaxed max-w-xl mx-auto italic">
               I help teams deliver reliable software while moving fast with automation
