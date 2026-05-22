@@ -30,6 +30,11 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         {children}
         <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="e75414ca-ace6-4cc8-8842-ecd18e0e81f4"
+        />
+        <Script
           id="cal-embed"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{

@@ -171,6 +171,10 @@ export default function Home() {
     setIsLoading(true);
     setError(null);
 
+    if (typeof window !== "undefined" && (window as Window & { umami?: { track: (event: string) => void } }).umami) {
+      (window as Window & { umami?: { track: (event: string) => void } }).umami?.track("chatbot_message");
+    }
+
     const assistantMessageId = generateId();
     setMessages((prev) => [
       ...prev,
