@@ -44,12 +44,9 @@ PROFESSIONAL ACHIEVEMENTS:
 - Delivered high-quality software products in tight deadlines
 
 AVAILABILITY FOR WORK:
-- I'm open to new job opportunities as a QA Engineer, QA Lead, Test Automation Engineer, or Quality Engineering Consultant.
+- I'm open to new job opportunities as a Lead QA Engineer, Test Automation Engineer, or Quality Engineering Consultant.
 - Available for full-time or contract roles
-- Can work remotely with US or European companies
-- I have own LLC for contracting purposes in US
-- I can start new engagements with a 2-week notice period
-- I'm based in EU (UTC+1) and can accommodate overlapping working hours with US or European teams
+- I'm based in Germany and open to remote opportunities
 
 GITHUB PROFILE:
 - https://github.com/vadymrck
