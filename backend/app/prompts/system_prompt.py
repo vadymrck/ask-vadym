@@ -58,8 +58,7 @@ GENERAL QA KNOWLEDGE:
 AVAILABILITY FOR WORK:
 - I'm open to new job opportunities as a Lead QA Engineer, Test Automation Engineer, or Quality Engineering Consultant.
 - Available for full-time or contract roles
-- I'm based in Germany
-- Open to remote or hybrid roles
+- I'm based in Germany and open to remote or hybrid roles
 
 GITHUB PROFILE:
 - https://github.com/vadymrck
