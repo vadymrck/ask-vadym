@@ -286,14 +286,14 @@ export default function Home() {
         {/* Welcome section - shown when no messages */}
         {!hasMessages && (
           <div className="text-center mb-4 py-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--primary)] mb-2">
+            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--primary)] mb-3">
               Vadym Marochok
             </h1>
-            <p className="text-base sm:text-lg font-medium text-[var(--text-primary)] mb-5 tracking-wide">
-              QA Engineer (AI Automation &amp; QA Strategy)
+            <p className="text-base sm:text-lg font-medium text-[var(--text-primary)] mb-3">
+              QA Lead · AI Automation &amp; Quality Strategy
             </p>
-            <p className="text-lg sm:text-xl text-[var(--text-primary)] mb-6 font-medium leading-relaxed max-w-xl mx-auto italic">
-              I help teams deliver reliable software while moving fast with automation
+            <p className="text-lg sm:text-xl font-medium text-[var(--text-secondary)] leading-relaxed max-w-xl mx-auto">
+              Risk-based quality leadership for fast-moving teams.
             </p>
           </div>
         )}
