@@ -23,7 +23,7 @@ from tests.helpers import (
 
 @pytest.mark.monitoring
 def test_chat_returns_portfolio_content(test_client: TestClient):
-    """Chat should return relevant portfolio content about QA experience."""
+    """Chat should return relevant portfolio content about Vadym's work."""
     response = ask_question(test_client, "Hi")
 
     assert response.status_code == 200
@@ -62,7 +62,7 @@ def test_chat_redirects_offtopic_questions(test_client: TestClient):
         "paris" not in message_lower
     ), "Should not answer off-topic geography question"
 
-    # Should indicate it's outside scope or redirect to QA topics
+    # Should indicate it's outside scope or redirect to professional topics
     decline_indicators = [
         "outside my",
         "not about",
