@@ -45,7 +45,7 @@ test.describe("Book a QA Intro Call", () => {
     await test.step("Click chip and verify chatbox prefilled", async () => {
       await mainChatPage.clickExampleQuestion("Book Intro Call");
       await mainChatPage.toHaveExampleChatInput(
-        "Book a short 20-minute intro call to discuss QA, automation, or opportunities.",
+        "Book a short 20-minute intro call to discuss AI automation, workflow automation, or opportunities.",
       );
       await mainChatPage.toHaveSubmitButtonBeEnabled();
     });

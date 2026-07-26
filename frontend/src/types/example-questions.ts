@@ -5,20 +5,20 @@ export const EXAMPLE_QUESTIONS = [
   },
   {
     label: "Book Intro Call",
-    question: "Book a short 20-minute intro call to discuss QA, automation, or opportunities.",
+    question: "Book a short 20-minute intro call to discuss AI automation, workflow automation, or opportunities.",
     highlight: true,
   },
   {
     label: "Skills",
-    question: "What QA skills do you have?",
+    question: "What are your technical skills?",
   },
   {
     label: "Contacts",
     question: "How can I contact you?",
   },
   {
-    label: "Test Automation",
-    question: "What test automation tools do you use?",
+    label: "Portfolio Projects",
+    question: "Tell me about your AI automation portfolio projects.",
   },
 ] as const;
 
