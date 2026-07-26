@@ -84,7 +84,8 @@ Tests run automatically on:
 - `['hi', 'hello', 'help', 'vadym']`
 
 **PORTFOLIO_MARKERS** - Expected terms in portfolio-related responses:
-- `['qa', 'quality', 'testing', 'playwright', 'automation', 'istqb', 'vadym']`
+- `['vadym', 'automation', 'ai', 'workflow', 'engineer', 'llm', 'agent', 'qa', 'quality', 'testing', 'playwright']`
+- Deliberately broad: this is a liveness check, so a reworded reply should not fail it
 
 ## Non-Deterministic Response Handling
 

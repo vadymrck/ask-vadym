@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import { MainChatPage } from "~pom/MainChatPage.pom";
 
-test.describe("Book a QA Intro Call", () => {
+test.describe("Book an Intro Call", () => {
   let mainChatPage: MainChatPage;
 
   test.beforeEach(async ({ page }) => {
@@ -10,7 +10,7 @@ test.describe("Book a QA Intro Call", () => {
   });
 
   test("Desktop: header button opens and closes booking dialog", async () => {
-    await test.step("Click Book a QA Intro Call in header", async () => {
+    await test.step("Click Book an Intro Call in header", async () => {
       await mainChatPage.toHaveBookCallButtonVisible();
       await mainChatPage.clickBookCallButton();
       await mainChatPage.toHaveCalPopupVisible();
@@ -25,7 +25,7 @@ test.describe("Book a QA Intro Call", () => {
   test("Mobile: burger menu button opens and closes booking dialog", async () => {
     await mainChatPage.gotoMobile();
 
-    await test.step("Open mobile menu and click Book a QA Intro Call", async () => {
+    await test.step("Open mobile menu and click Book an Intro Call", async () => {
       await mainChatPage.openMobileMenu();
       await mainChatPage.toHaveBookCallMobileButtonVisible();
       await mainChatPage.clickBookCallMobileButton();
@@ -45,7 +45,7 @@ test.describe("Book a QA Intro Call", () => {
     await test.step("Click chip and verify chatbox prefilled", async () => {
       await mainChatPage.clickExampleQuestion("Book Intro Call");
       await mainChatPage.toHaveExampleChatInput(
-        "Book a short 20-minute intro call to discuss QA, automation, or opportunities.",
+        "Book a short 20-minute intro call to discuss AI automation, workflow automation, or opportunities.",
       );
       await mainChatPage.toHaveSubmitButtonBeEnabled();
     });

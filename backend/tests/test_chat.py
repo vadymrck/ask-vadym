@@ -23,7 +23,7 @@ from tests.helpers import (
 
 @pytest.mark.monitoring
 def test_chat_returns_portfolio_content(test_client: TestClient):
-    """Chat should return relevant portfolio content about QA experience."""
+    """Chat should return relevant portfolio content about Vadym's work."""
     response = ask_question(test_client, "Hi")
 
     assert response.status_code == 200
@@ -62,7 +62,7 @@ def test_chat_redirects_offtopic_questions(test_client: TestClient):
         "paris" not in message_lower
     ), "Should not answer off-topic geography question"
 
-    # Should indicate it's outside scope or redirect to QA topics
+    # Should indicate it's outside scope or redirect to professional topics
     decline_indicators = [
         "outside my",
         "not about",
@@ -88,7 +88,9 @@ def test_chat_handles_recent_experience_follow_up(test_client: TestClient):
     assert first_response.status_code == 200
 
     first_text = get_response_text(first_response)
-    assert_contains_text(first_text, "Cytiva")
+    # Assert on the role rather than the brand name, so the test survives
+    # any future rename of the independent consulting work.
+    assert_contains_text(first_text, "independent")
     assert_not_contains_text(first_text, "Shore")
 
     history = history_from_turn(first_question, first_text)
@@ -99,4 +101,4 @@ def test_chat_handles_recent_experience_follow_up(test_client: TestClient):
     assert second_response.status_code == 200
 
     second_text = get_response_text(second_response)
-    assert_contains_text(second_text, "Shore")
+    assert_contains_text(second_text, "Cytiva")

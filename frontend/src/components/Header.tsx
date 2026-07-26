@@ -4,6 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * Temporarily hides the Blog link from the primary navigation while the site
+ * leads with AI automation positioning. Blog pages, routes and content are
+ * untouched and remain reachable by direct URL. Set to true to restore.
+ */
+const SHOW_BLOG_NAV_LINK = false;
+
 interface HeaderProps {
   currentPage?: "home" | "blog";
 }
@@ -63,17 +70,21 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
             >
               Chat
             </Link>
-            <span className="text-[var(--border)]">|</span>
-            <Link
-              href="/blog"
-              className={`transition-colors cursor-pointer ${
-                currentPage === "blog"
-                  ? "text-[var(--primary)] font-medium"
-                  : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
-              }`}
-            >
-              Blog
-            </Link>
+            {SHOW_BLOG_NAV_LINK && (
+              <>
+                <span className="text-[var(--border)]">|</span>
+                <Link
+                  href="/blog"
+                  className={`transition-colors cursor-pointer ${
+                    currentPage === "blog"
+                      ? "text-[var(--primary)] font-medium"
+                      : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
+                  }`}
+                >
+                  Blog
+                </Link>
+              </>
+            )}
             <span className="text-[var(--border)]">|</span>
             <a
               href="https://www.linkedin.com/in/vadym-m/"
@@ -162,17 +173,19 @@ export default function Header({ currentPage = "home" }: HeaderProps) {
             >
               Chat
             </Link>
-            <Link
-              href="/blog"
-              className={`block py-2 cursor-pointer ${
-                currentPage === "blog"
-                  ? "text-[var(--primary)] font-medium"
-                  : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
-              }`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Blog
-            </Link>
+            {SHOW_BLOG_NAV_LINK && (
+              <Link
+                href="/blog"
+                className={`block py-2 cursor-pointer ${
+                  currentPage === "blog"
+                    ? "text-[var(--primary)] font-medium"
+                    : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
+              </Link>
+            )}
             <a
               href="https://www.linkedin.com/in/vadym-m/"
               target="_blank"

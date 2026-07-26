@@ -37,18 +37,21 @@ test.describe("Main Chat Page", () => {
         "What's your experience?",
       );
       await mainChatPage.toHaveSubmitButtonBeEnabled();
-      await mainChatPage.clickExampleQuestion("Test Automation");
+      await mainChatPage.clickExampleQuestion("Portfolio Projects");
       await mainChatPage.toHaveExampleChatInput(
-        "What test automation tools do you use?",
+        "Tell me about your AI automation portfolio projects.",
       );
     });
 
-    await test.step("Submit question and verify Playwright mentioned", async () => {
+    await test.step("Submit question and verify portfolio projects mentioned", async () => {
       await mainChatPage.submitWithEnter();
       await mainChatPage.toHaveUserMessage(
-        "What test automation tools do you use?",
+        "Tell me about your AI automation portfolio projects.",
       );
-      await mainChatPage.toHaveAssistantMessageContaining(["Playwright"]);
+      await mainChatPage.toHaveAssistantMessageContaining([
+        "Lead",
+        "Support",
+      ]);
     });
   });
 
