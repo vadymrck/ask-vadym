@@ -8,15 +8,36 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://ask-vadym.com";
+const SITE_TITLE = "Vadym Marochok | AI Automation Engineer";
+const SITE_DESCRIPTION =
+  "AI Automation Engineer building LLM-powered workflows, AI agents, and business process automations for sales, customer operations, and internal teams.";
+
 export const metadata: Metadata = {
-  title: "Vadym Marochok | AI Automation Engineer",
-  description:
-    "AI Automation Engineer building LLM-powered workflows, AI agents, and business process automations for sales, customer operations, and internal teams.",
+  // Required so relative Open Graph image paths resolve to absolute URLs.
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   openGraph: {
-    title: "Vadym Marochok | AI Automation Engineer",
-    description:
-      "AI Automation Engineer building LLM-powered workflows, AI agents, and business process automations for sales, customer operations, and internal teams.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     type: "website",
+    url: SITE_URL,
+    siteName: "Ask Vadym",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Vadym Marochok — AI Automation Engineer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ["/og-image.jpg"],
   },
 };
 
