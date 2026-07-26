@@ -326,10 +326,10 @@ export class MainChatPage extends BasePage {
       { timeout: 30000 }
     );
 
-    const bookingLink = assistantMessage.locator('a[href*="cal.com/ask-vadym"]', { hasText: "Book a QA Intro Call" });
+    const bookingLink = assistantMessage.locator('a[href*="cal.com/ask-vadym"]', { hasText: "Book an Intro Call" });
     await expect(
       bookingLink,
-      'Assistant response should contain "Book a QA Intro Call" link to cal.com/ask-vadym'
+      'Assistant response should contain "Book an Intro Call" link to cal.com/ask-vadym'
     ).toBeVisible({ timeout: 5000 });
     await expect(
       bookingLink,

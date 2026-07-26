@@ -88,7 +88,9 @@ def test_chat_handles_recent_experience_follow_up(test_client: TestClient):
     assert first_response.status_code == 200
 
     first_text = get_response_text(first_response)
-    assert_contains_text(first_text, "Cytiva")
+    # Assert on the role rather than the brand name, so the test survives
+    # any future rename of the independent consulting work.
+    assert_contains_text(first_text, "independent")
     assert_not_contains_text(first_text, "Shore")
 
     history = history_from_turn(first_question, first_text)
@@ -99,4 +101,4 @@ def test_chat_handles_recent_experience_follow_up(test_client: TestClient):
     assert second_response.status_code == 200
 
     second_text = get_response_text(second_response)
-    assert_contains_text(second_text, "Shore")
+    assert_contains_text(second_text, "Cytiva")
