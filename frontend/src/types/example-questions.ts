@@ -2,11 +2,13 @@ export const EXAMPLE_QUESTIONS = [
   {
     label: "Experience",
     question: "What's your experience?",
+    showOnMobile: true,
   },
   {
     label: "Book Intro Call",
     question: "Book a short 20-minute intro call to discuss AI automation, workflow automation, or opportunities.",
     highlight: true,
+    showOnMobile: true,
   },
   {
     label: "Skills",
@@ -19,6 +21,7 @@ export const EXAMPLE_QUESTIONS = [
   {
     label: "Portfolio Projects",
     question: "Tell me about your AI automation portfolio projects.",
+    showOnMobile: true,
   },
 ] as const;
 
