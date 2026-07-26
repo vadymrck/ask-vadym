@@ -294,10 +294,10 @@ export default function Home() {
               Vadym Marochok
             </h1>
             <p className="text-base sm:text-lg font-medium text-[var(--text-primary)] mb-3">
-              QA Lead · AI Automation &amp; Quality Strategy
+              AI Automation Engineer
             </p>
             <p className="text-lg sm:text-xl font-medium text-[var(--text-secondary)] leading-relaxed max-w-xl mx-auto">
-              Risk-based quality leadership for fast-moving teams.
+              Agentic workflows, LLM integrations, and business automation for sales, customer operations, and internal teams.
             </p>
           </div>
         )}
