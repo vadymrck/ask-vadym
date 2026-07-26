@@ -6,11 +6,11 @@ import Footer from "@/components/Footer";
 import { BLOG_POSTS } from "@/types/blog";
 
 export const metadata: Metadata = {
-  title: "Blog | Ask Vadym — AI QA Engineer",
+  title: "Blog | Ask Vadym",
   description:
     "Articles on QA automation, Playwright, Pytest, API testing, and AI-assisted testing by Vadym Marochok.",
   openGraph: {
-    title: "Blog | Ask Vadym — AI QA Engineer",
+    title: "Blog | Ask Vadym",
     description:
       "Articles on QA automation, Playwright, Pytest, API testing, and AI-assisted testing by Vadym Marochok.",
     type: "website",

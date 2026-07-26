@@ -9,13 +9,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Ask Vadym | AI QA Engineer",
+  title: "Vadym Marochok | AI Automation Engineer",
   description:
-    "Chat with an AI assistant to learn about Vadym Marochok experience as an QA Engineer with 10+ years in Quality Assurance, test automation, Playwright, and AI testing.",
+    "AI Automation Engineer building LLM-powered workflows, AI agents, and business process automations for sales, customer operations, and internal teams.",
   openGraph: {
-    title: "Ask Vadym | AI QA Engineer",
+    title: "Vadym Marochok | AI Automation Engineer",
     description:
-      "Chat with an AI assistant to learn about Vadym Marochok's professional experience in QA and test automation.",
+      "AI Automation Engineer building LLM-powered workflows, AI agents, and business process automations for sales, customer operations, and internal teams.",
     type: "website",
   },
 };
