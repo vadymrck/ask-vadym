@@ -294,10 +294,10 @@ export default function Home() {
               Vadym Marochok
             </h1>
             <p className="text-base sm:text-lg font-medium text-[var(--text-primary)] mb-3">
-              AI Automation Engineer
+              AI Automation and Quality Engineering
             </p>
             <p className="text-lg sm:text-xl font-medium text-[var(--text-secondary)] leading-relaxed max-w-xl mx-auto">
-              Agentic workflows, LLM integrations, and business automation for sales, customer operations, and internal teams.
+              Agentic workflows, LLM integrations, and business automation.
             </p>
           </div>
         )}
@@ -352,7 +352,7 @@ export default function Home() {
               <svg className="w-6 h-6 flex-shrink-0 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
-              <span className="font-medium">Hi! Ask about my AI automation work, projects, technical skills, or engineering background.</span>
+              <span className="font-medium">Hi! Ask about my experience, projects, or technical skills.</span>
             </div>
           </div>
         )}
