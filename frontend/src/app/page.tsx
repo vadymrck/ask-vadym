@@ -286,10 +286,10 @@ export default function Home() {
     <div className="min-h-screen bg-[var(--background)] flex flex-col">
       <Header />
 
-      <main className={`flex-1 flex flex-col max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 ${!hasMessages ? "justify-center" : ""}`}>
+      <main className={`flex-1 flex flex-col max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 ${!hasMessages ? "justify-center pb-24 sm:pb-32" : ""}`}>
         {/* Welcome section - shown when no messages */}
         {!hasMessages && (
-          <div className="text-center mb-4 py-8">
+          <div className="text-center mb-2 pt-2 pb-4">
             <h1 className="text-3xl sm:text-4xl font-bold text-[var(--primary)] mb-3">
               Vadym Marochok
             </h1>
