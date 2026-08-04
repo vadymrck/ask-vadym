@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 const SITE_URL = "https://ask-vadym.com";
-const SITE_TITLE = "Vadym Marochok | AI Automation Engineer";
+const SITE_TITLE = "Vadym Marochok | AI Automation and Quality Engineering";
 const SITE_DESCRIPTION =
-  "AI Automation Engineer building LLM-powered workflows, AI agents, and business process automations for sales, customer operations, and internal teams.";
+  "Agentic workflows, LLM integrations, and business automation, backed by a decade of quality engineering and test automation.";
 
 export const metadata: Metadata = {
   // Required so relative Open Graph image paths resolve to absolute URLs.
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Vadym Marochok — AI Automation Engineer",
+        alt: "Vadym Marochok — AI Automation and Quality Engineering",
       },
     ],
   },
